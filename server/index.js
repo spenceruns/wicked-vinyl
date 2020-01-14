@@ -33,6 +33,24 @@ app.get('/api/products', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/products/:productId', (req, res, next) => {
+  const sql = `
+  select *
+    from "products"
+   where "productId" = $1
+  `;
+  const productId = [req.params.productId];
+  db.query(sql, productId)
+    .then(data => {
+      if (data.rows[0]) {
+        res.json(data.rows[0]);
+      } else {
+        next(new ClientError('Cannot find a product with that ID', 404));
+      }
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
