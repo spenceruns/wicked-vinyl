@@ -4,7 +4,7 @@ import ProductListItem from './product-list-item';
 function Products(props) {
   return props.products.map(product => {
     return (
-      <ProductListItem key={product.productId} product={product} />
+      <ProductListItem key={product.productId} product={product} setView={props.setView} />
     );
   });
 }
@@ -30,7 +30,7 @@ class ProductList extends React.Component {
 
   render() {
     return (
-      <Products products={this.state.products} />
+      <Products products={this.state.products} setView={this.props.setView} />
     );
   }
 }
