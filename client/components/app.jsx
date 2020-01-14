@@ -1,4 +1,6 @@
 import React from 'react';
+import Header from './header';
+import ProductList from './product-list';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -9,17 +11,22 @@ export default class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    fetch('/api/health-check')
-      .then(res => res.json())
-      .then(data => this.setState({ message: data.message || data.error }))
-      .catch(err => this.setState({ message: err.message }))
-      .finally(() => this.setState({ isLoading: false }));
-  }
-
   render() {
-    return this.state.isLoading
-      ? <h1>Testing connections...</h1>
-      : <h1>{ this.state.message }</h1>;
+    return (
+      <div className="container-fluid">
+        <header className="row">
+          <div className="col-12 navbar navbar-dark bg-dark">
+            <Header />
+          </div>
+        </header>
+        <div className="row bg-light">
+          <div className="container my-3">
+            <div className="row">
+              <ProductList />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
