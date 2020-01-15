@@ -3,6 +3,7 @@ import Header from './header';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
+import CheckoutForm from './checkout-form';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export default class App extends React.Component {
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
   }
 
   setView(name, params) {
@@ -32,6 +34,8 @@ export default class App extends React.Component {
       return <ProductDetails productId={this.state.view.params.productId} setView={this.setView} addToCart={this.addToCart} />;
     } else if (this.state.view.name === 'cart') {
       return <CartSummary products={this.state.cart} setView={this.setView} />;
+    } else if (this.state.view.name === 'checkout') {
+      return <CheckoutForm products={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
     } else {
       return <ProductList setView={this.setView} />;
     }
@@ -59,6 +63,25 @@ export default class App extends React.Component {
       });
   }
 
+  placeOrder(customerInfo) {
+    fetch('/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(customerInfo)
+    })
+      .then(data => {
+        this.setState({
+          view: {
+            name: 'catalog',
+            params: {}
+          },
+          cart: []
+        });
+      });
+  }
+
   componentDidMount() {
     this.getCartItems();
   }
@@ -71,7 +94,7 @@ export default class App extends React.Component {
             <Header numberInCart={this.state.cart.length} setView={this.setView} />
           </div>
         </header>
-        <div className="row bg-light">
+        <div className="row">
           <div className="container my-3">
             <div className="row">
               { this.checkForCurrentPage() }
