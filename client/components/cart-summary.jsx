@@ -4,10 +4,7 @@ import CartSummaryItem from './cart-summary-item';
 function CartSummary(props) {
   const cartItems = (props.products.length > 1) ? props.products.map(product => <CartSummaryItem key={product.cartItemId} product={product} />) : <div className="display-2 text-center">No Items in Cart</div>;
   let totalPrice = 0;
-  // props.products.forEach(product => totalPrice += product.price);
-  for (let i = 0; i < props.products.length; i++) {
-    totalPrice += props.products[i].price;
-  }
+  props.products.forEach(product => { totalPrice += product.price; });
   totalPrice = `$${(totalPrice / 100).toFixed(2)}`;
   return (
     <div className="container">
