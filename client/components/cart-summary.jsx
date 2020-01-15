@@ -2,7 +2,8 @@ import React from 'react';
 import CartSummaryItem from './cart-summary-item';
 
 function CartSummary(props) {
-  const cartItems = (props.products.length > 1) ? props.products.map(product => <CartSummaryItem key={product.cartItemId} product={product} />) : <div className="display-2 text-center">No Items in Cart</div>;
+  const cartItems = (props.products.length > 0) ? props.products.map(product => <CartSummaryItem key={product.cartItemId} product={product} />) : <div className="display-2 text-center">No Items in Cart</div>;
+  const button = ((props.products.length > 0)) ? <button onClick={() => props.setView('checkout', {})} className="float-right btn btn-primary">Checkout</button> : null;
   let totalPrice = 0;
   props.products.forEach(product => { totalPrice += product.price; });
   totalPrice = `$${(totalPrice / 100).toFixed(2)}`;
@@ -16,6 +17,7 @@ function CartSummary(props) {
         <h4 className="text-muted my-auto">Total: { totalPrice }</h4>
       </div>
       { cartItems }
+      { button }
     </div>
   );
 }
