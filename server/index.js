@@ -135,6 +135,27 @@ app.post('/api/cart/:productId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/orders', (req, res, next) => {
+  if (!req.session.cartId) throw new ClientError('Cannot find a cart session with that ID', 400);
+  if (!req.body.name || !req.body.creditCard || !req.body.shippingAddress) throw new ClientError('Please enter a valid Name, Credit Card and Shipping Address', 400);
+  const orderSql = `
+  insert into "orders" ("cartId", "name", "creditCard", "shippingAddress")
+  values ($1, $2, $3, $4)
+  returning "orderId",
+            "createdAt",
+            "name",
+            "creditCard",
+            "shippingAddress"
+  `;
+  const customerInfo = [req.session.cartId, req.body.name, req.body.creditCard, req.body.shippingAddress];
+  db.query(orderSql, customerInfo)
+    .then(result => {
+      delete req.session.cartId;
+      res.status(201).json(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
