@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './header';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
+import CartSummary from './cart-summary';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -26,8 +27,14 @@ export default class App extends React.Component {
     });
   }
 
-  checkForDetailsPage() {
-    return (this.state.view.name === 'details') ? <ProductDetails productId={this.state.view.params.productId} setView={this.setView} addToCart={this.addToCart} /> : <ProductList setView={this.setView} />;
+  checkForCurrentPage() {
+    if (this.state.view.name === 'details') {
+      return <ProductDetails productId={this.state.view.params.productId} setView={this.setView} addToCart={this.addToCart} />;
+    } else if (this.state.view.name === 'cart') {
+      return <CartSummary products={this.state.cart} setView={this.setView} />;
+    } else {
+      return <ProductList setView={this.setView} />;
+    }
   }
 
   getCartItems() {
@@ -61,13 +68,13 @@ export default class App extends React.Component {
       <div className="container-fluid">
         <header className="row">
           <div className="col-12 navbar navbar-dark bg-dark">
-            <Header numberInCart={this.state.cart.length} />
+            <Header numberInCart={this.state.cart.length} setView={this.setView} />
           </div>
         </header>
         <div className="row bg-light">
           <div className="container my-3">
             <div className="row">
-              { this.checkForDetailsPage() }
+              { this.checkForCurrentPage() }
             </div>
           </div>
         </div>
