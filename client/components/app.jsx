@@ -13,7 +13,8 @@ export default class App extends React.Component {
         name: 'vinyl',
         params: {}
       },
-      cart: []
+      cart: [],
+      products: []
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -26,7 +27,14 @@ export default class App extends React.Component {
         name: name,
         params: params
       }
-    });
+    }, () => this.getProducts(this.state.view.name));
+  }
+
+  getProducts(category) {
+    fetch(`/api/products/all/${category}`)
+      .then(results => results.json())
+      .then(data => this.setState({ products: data }))
+      .catch(err => console.error(err));
   }
 
   checkForCurrentPage() {
@@ -37,7 +45,7 @@ export default class App extends React.Component {
     } else if (this.state.view.name === 'checkout') {
       return <CheckoutForm products={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
     } else {
-      return <ProductList setView={this.setView} />;
+      return <ProductList products={this.state.products} setView={this.setView} />;
     }
   }
 
@@ -64,7 +72,7 @@ export default class App extends React.Component {
   }
 
   placeOrder(customerInfo) {
-    fetch('/api/orders', {
+    fetch('/api/orders/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -83,16 +91,15 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    this.getProducts('vinyl');
     this.getCartItems();
   }
 
   render() {
     return (
       <div className="container-fluid">
-        <header className="row">
-          <div className="col-12">
-            <Header numberInCart={this.state.cart.length} setView={this.setView} />
-          </div>
+        <header className="row sticky-top bg-light shadow-sm">
+          <Header numberInCart={this.state.cart.length} setView={this.setView} />
         </header>
         <div className="row">
           <div className="container my-3">
