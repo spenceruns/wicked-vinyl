@@ -11,7 +11,7 @@ function CartSummary(props) {
     <div className="container">
       <div className="d-flex justify-content-between">
         <div>
-          <div className="text-muted" onClick={() => props.setView('catalog', {})} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Back to catalog</div>
+          <div className="text-muted" onClick={() => props.setView('vinyl', {})} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Back to catalog</div>
           <h1>My Cart</h1>
         </div>
         <h4 className="text-muted my-auto">Total: { totalPrice }</h4>

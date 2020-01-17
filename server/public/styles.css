@@ -5,12 +5,28 @@
 
 .vinyl {
   object-fit: contain;
-  height: 25vh;
-  width: 25vh;
+  height: 28vh;
+  width: 28vh;
   position: absolute;
-  right: 128px;
-  transition: right 150ms ease-in-out;
   z-index: -1;
+  transition: transform 150ms ease-in-out;
+}
+
+.album {
+  height: 37vh;
+  width: 28vh;
+  margin: auto;
+}
+
+.cover {
+  object-fit: contain;
+  height: 28vh;
+  cursor: pointer;
+}
+
+.details-album-art {
+  object-fit: contain;
+  height: 60vh;
 }
 
 .nav-item {
@@ -19,4 +35,13 @@
 
 .nav-item:hover {
   font-weight: bold;
+}
+
+.cart-card {
+  height: '30vh'
+}
+
+.cart-album-art {
+  object-fit: contain;
+  height: 30vh;
 }
