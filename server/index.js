@@ -22,10 +22,10 @@ app.get('/api/health-check', (req, res, next) => {
 app.get('/api/products', (req, res, next) => {
   const sql = `
   select "productId",
-         "name",
+         "album",
+         "artist",
          "price",
-         "image",
-         "shortDescription"
+         "albumArt"
     from "products"
   `;
   db.query(sql)

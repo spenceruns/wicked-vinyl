@@ -10,7 +10,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'catalog',
+        name: 'vinyl',
         params: {}
       },
       cart: []
@@ -74,7 +74,7 @@ export default class App extends React.Component {
       .then(data => {
         this.setState({
           view: {
-            name: 'catalog',
+            name: 'vinyl',
             params: {}
           },
           cart: []
@@ -90,7 +90,7 @@ export default class App extends React.Component {
     return (
       <div className="container-fluid">
         <header className="row">
-          <div className="col-12 navbar navbar-dark bg-dark">
+          <div className="col-12">
             <Header numberInCart={this.state.cart.length} setView={this.setView} />
           </div>
         </header>

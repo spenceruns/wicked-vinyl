@@ -1,0 +1,22 @@
+.logo {
+  height: 40px;
+  transform: translateY(-3px);
+}
+
+.vinyl {
+  object-fit: contain;
+  height: 25vh;
+  width: 25vh;
+  position: absolute;
+  right: 128px;
+  transition: right 150ms ease-in-out;
+  z-index: -1;
+}
+
+.nav-item {
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  font-weight: bold;
+}
