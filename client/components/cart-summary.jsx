@@ -2,7 +2,7 @@ import React from 'react';
 import CartSummaryItem from './cart-summary-item';
 
 function CartSummary(props) {
-  const cartItems = (props.products.length > 0) ? props.products.map(product => <CartSummaryItem key={product.cartItemId} product={product} />) : <div className="display-2 text-center">No Items in Cart</div>;
+  const cartItems = (props.products.length > 0) ? props.products.map(product => <CartSummaryItem key={product.cartItemId} product={product} deleteCartItem={props.deleteCartItem} />) : <div className="display-2 text-center">No Items in Cart</div>;
   const button = ((props.products.length > 0)) ? <button onClick={() => props.setView('checkout', {})} className="float-right btn btn-primary">Checkout</button> : null;
   let totalPrice = 0;
   props.products.forEach(product => { totalPrice += product.price; });

@@ -28,7 +28,7 @@ class ProductListItem extends React.Component {
     const imgPos = this.state.isHovered ? { transform: 'translateX(60px)' } : null;
     return (
       <div className="col-lg-6 col-xl-4">
-        <div className="album" >
+        <div className="album mb-2" >
           <img className="card-img-top vinyl" src="/images/vinyl.png" alt='vinyl' style={imgPos} />
           <img className="card-img-top shadow cover" onClick={this.showDetails} onMouseEnter={this.showVinyl} onMouseLeave={this.hideVinyl} src={this.props.product.albumArt} alt={this.props.product.album} />
           <div className="card-body p-1">
