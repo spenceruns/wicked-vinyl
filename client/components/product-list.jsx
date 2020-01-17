@@ -5,7 +5,7 @@ function ProductList(props) {
   return (
     <>
       {
-        props.products.map(product => <ProductListItem key={product.productId} product={product} setView={props.setView} />)
+        props.products.map(product => <ProductListItem key={product.productId} product={product} setView={props.setView} addToCart={props.addToCart} />)
       }
     </>
   );

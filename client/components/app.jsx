@@ -46,7 +46,7 @@ export default class App extends React.Component {
     } else if (this.state.view.name === 'checkout') {
       return <CheckoutForm products={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
     } else {
-      return <ProductList products={this.state.products} setView={this.setView} />;
+      return <ProductList products={this.state.products} setView={this.setView} addToCart={this.addToCart} />;
     }
   }
 
