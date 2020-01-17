@@ -137,6 +137,17 @@ app.post('/api/cart/:productId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.delete('/api/cart/:cartItemId', (req, res, next) => {
+  const sql = `
+  delete from "cartItems"
+   where "cartItemId" = $1
+  `;
+  const cartItemId = [req.params.cartItemId];
+  db.query(sql, cartItemId)
+    .then(res.status(202).json(`Item with Cart Item ID of ${req.params.cartItemId} was successfuly removed.`))
+    .catch(err => next(err));
+});
+
 app.post('/api/orders', (req, res, next) => {
   if (!req.session.cartId) throw new ClientError('Cannot find a cart session with that ID', 400);
   if (!req.body.name || !req.body.creditCard || !req.body.shippingAddress) throw new ClientError('Please enter a valid Name, Credit Card and Shipping Address', 400);

@@ -16,7 +16,7 @@ class Details extends React.Component {
       <>
         <div className="text-muted" onClick={() => this.props.setView('vinyl', {})} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Back to catalog</div>
         <div className="row">
-          <img className="col-6 ml-4 details-album-art" src={this.props.product.albumArt} alt={this.props.product.album} />
+          <img className="col-5 ml-4 details-album-art" src={this.props.product.albumArt} alt={this.props.product.album} />
           <div className="col-5 my-auto">
             <div className="card-title h5 font-weight-bolder">{this.props.product.album}</div>
             <div className="card-text mt-n3">{this.props.product.artist}</div>

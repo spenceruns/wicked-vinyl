@@ -19,6 +19,7 @@ export default class App extends React.Component {
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
+    this.deleteCartItem = this.deleteCartItem.bind(this);
   }
 
   setView(name, params) {
@@ -41,7 +42,7 @@ export default class App extends React.Component {
     if (this.state.view.name === 'details') {
       return <ProductDetails productId={this.state.view.params.productId} setView={this.setView} addToCart={this.addToCart} />;
     } else if (this.state.view.name === 'cart') {
-      return <CartSummary products={this.state.cart} setView={this.setView} />;
+      return <CartSummary products={this.state.cart} setView={this.setView} deleteCartItem={this.deleteCartItem} />;
     } else if (this.state.view.name === 'checkout') {
       return <CheckoutForm products={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
     } else {
@@ -67,6 +68,16 @@ export default class App extends React.Component {
       .then(data => {
         const newList = this.state.cart;
         newList.push(data);
+        this.setState({ cart: newList });
+      });
+  }
+
+  deleteCartItem(cartItemId) {
+    fetch(`/api/cart/${cartItemId}`, {
+      method: 'DELETE'
+    })
+      .then(() => {
+        const newList = this.state.cart.filter(cartItem => cartItem.cartItemId !== cartItemId);
         this.setState({ cart: newList });
       });
   }
