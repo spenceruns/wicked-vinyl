@@ -1,3 +1,11 @@
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  animation: fade-in 500ms;
+}
+
 .logo {
   height: 40px;
   transform: translateY(-3px);
@@ -44,4 +52,9 @@
 .cart-album-art {
   object-fit: contain;
   height: 30vh;
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
