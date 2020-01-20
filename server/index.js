@@ -20,16 +20,20 @@ app.get('/api/health-check', (req, res, next) => {
 });
 
 app.get('/api/products/all/:category', (req, res, next) => {
-  const sql = `
-  select "productId",
-         "album",
-         "artist",
-         "price",
-         "albumArt"
-    from "products"
-   where "category" = $1
-  `;
   const category = [req.params.category];
+  const sql = `
+    select "productId",
+           "album",
+           "artist",
+           "price",
+           "albumArt",
+           "name",
+           "brand",
+           "color",
+           "category"
+      from "products"
+     where "category" = $1
+    `;
   db.query(sql, category)
     .then(data => res.json(data.rows))
     .catch(err => next(err));
@@ -61,7 +65,11 @@ app.get('/api/cart', (req, res, next) => {
            "p"."productId",
            "p"."albumArt",
            "p"."album",
-           "p"."artist"
+           "p"."artist",
+           "p"."name",
+           "p"."brand",
+           "p"."color",
+           "p"."category"
       from "cartItems" as "c"
       join "products" as "p" using ("productId")
      where "c"."cartId" = $1
@@ -125,7 +133,11 @@ app.post('/api/cart/:productId', (req, res, next) => {
             "p"."productId",
             "p"."albumArt",
             "p"."album",
-            "p"."description"
+            "p"."description",
+            "p"."name",
+            "p"."brand",
+            "p"."color",
+            "p"."category"
         from "cartItems" as "c"
         join "products" as "p" using ("productId")
       where "c"."cartItemId" = $1

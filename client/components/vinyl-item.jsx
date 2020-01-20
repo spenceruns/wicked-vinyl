@@ -1,12 +1,11 @@
 import React from 'react';
 
-class ProductListItem extends React.Component {
+class VinylItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isHovered: false
     };
-    this.showDetails = this.showDetails.bind(this);
     this.showVinyl = this.showVinyl.bind(this);
     this.hideVinyl = this.hideVinyl.bind(this);
   }
@@ -19,10 +18,6 @@ class ProductListItem extends React.Component {
     this.setState({ isHovered: false });
   }
 
-  showDetails() {
-    this.props.setView('details', { productId: this.props.product.productId });
-  }
-
   render() {
     const price = `$${(this.props.product.price / 100).toFixed(2)}`;
     const imgPos = this.state.isHovered ? { transform: 'translateX(60px)' } : null;
@@ -30,7 +25,7 @@ class ProductListItem extends React.Component {
       <div className="col-lg-6 col-xl-4">
         <div className="album mb-2" >
           <img className="card-img-top vinyl" src="/images/vinyl.png" alt='vinyl' style={imgPos} />
-          <img className="card-img-top shadow cover" onClick={this.showDetails} onMouseEnter={this.showVinyl} onMouseLeave={this.hideVinyl} src={this.props.product.albumArt} alt={this.props.product.album} />
+          <img className="card-img-top shadow cover" onClick={() => this.props.setView('details', { productId: this.props.product.productId })} onMouseEnter={this.showVinyl} onMouseLeave={this.hideVinyl} src={this.props.product.albumArt} alt={this.props.product.album} />
           <div className="card-body p-1">
             <div className="row">
               <div className="col-9">
@@ -49,4 +44,4 @@ class ProductListItem extends React.Component {
   }
 }
 
-export default ProductListItem;
+export default VinylItem;
