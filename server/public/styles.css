@@ -37,11 +37,22 @@
   font-weight: bold;
 }
 
+.page {
+  transition: transform 500ms ease-in;
+}
+
+.cart {
+position: absolute;
+right: 0;
+top: 0;
+transition: transform 500ms ease-in;
+}
+
 .cart-card {
   height: '30vh'
 }
 
 .cart-album-art {
   object-fit: contain;
-  height: 30vh;
+  height: 10vh;
 }

@@ -13,10 +13,13 @@ export default class App extends React.Component {
         name: 'vinyl',
         params: {}
       },
+      cartShowing: false,
       cart: [],
       products: []
     };
     this.setView = this.setView.bind(this);
+    this.showCart = this.showCart.bind(this);
+    this.hideCart = this.hideCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.deleteCartItem = this.deleteCartItem.bind(this);
@@ -31,6 +34,14 @@ export default class App extends React.Component {
     }, () => this.getProducts(this.state.view.name));
   }
 
+  showCart() {
+    this.setState({ cartShowing: true });
+  }
+
+  hideCart() {
+    this.setState({ cartShowing: false });
+  }
+
   getProducts(category) {
     fetch(`/api/products/all/${category}`)
       .then(results => results.json())
@@ -41,8 +52,6 @@ export default class App extends React.Component {
   checkForCurrentPage() {
     if (this.state.view.name === 'details') {
       return <ProductDetails productId={this.state.view.params.productId} setView={this.setView} addToCart={this.addToCart} />;
-    } else if (this.state.view.name === 'cart') {
-      return <CartSummary products={this.state.cart} setView={this.setView} deleteCartItem={this.deleteCartItem} />;
     } else if (this.state.view.name === 'checkout') {
       return <CheckoutForm products={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
     } else {
@@ -107,19 +116,24 @@ export default class App extends React.Component {
   }
 
   render() {
+    const cart = (this.state.cartShowing) ? <CartSummary products={this.state.cart} hideCart={this.hideCart} setView={this.setView} deleteCartItem={this.deleteCartItem} /> : null;
+    const pagePos = (this.state.cartShowing) ? { transform: 'translateX(-430px)', overflow: 'hidden' } : null;
     return (
-      <div className="container-fluid">
-        <header className="row sticky-top bg-light shadow-sm">
-          <Header numberInCart={this.state.cart.length} setView={this.setView} />
-        </header>
-        <div className="row">
-          <div className="container my-3">
-            <div className="row">
-              { this.checkForCurrentPage() }
+      <>
+        { cart }
+        <div className="container-fluid bg-white shadow page" style={pagePos}>
+          <header className="row sticky-top bg-light shadow-sm">
+            <Header numberInCart={this.state.cart.length} setView={this.setView} showCart={this.showCart} />
+          </header>
+          <div className="row">
+            <div className="container my-3">
+              <div className="row">
+                { this.checkForCurrentPage() }
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
