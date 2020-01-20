@@ -162,17 +162,24 @@ app.delete('/api/cart/:cartItemId', (req, res, next) => {
 
 app.post('/api/orders', (req, res, next) => {
   if (!req.session.cartId) throw new ClientError('Cannot find a cart session with that ID', 400);
-  if (!req.body.name || !req.body.creditCard || !req.body.shippingAddress) throw new ClientError('Please enter a valid Name, Credit Card and Shipping Address', 400);
   const orderSql = `
-  insert into "orders" ("cartId", "name", "creditCard", "shippingAddress")
-  values ($1, $2, $3, $4)
+  insert into "orders" ("cartId", "fName", "lName", "address1", "address2", "city", "state", "zip", "creditCardNumber", "month", "year", "cvv")
+  values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
   returning "orderId",
             "createdAt",
-            "name",
-            "creditCard",
-            "shippingAddress"
+            "fName",
+            "lName",
+            "address1",
+            "address2",
+            "city",
+            "state",
+            "zip",
+            "creditCardNumber",
+            "month",
+            "year",
+            "cvv"
   `;
-  const customerInfo = [req.session.cartId, req.body.name, req.body.creditCard, req.body.shippingAddress];
+  const customerInfo = [req.session.cartId, req.body.fName, req.body.lName, req.body.address1, req.body.address2, req.body.city, req.body.state, req.body.zip, req.body.creditCardNumber, req.body.month, req.body.year, req.body.cvv];
   db.query(orderSql, customerInfo)
     .then(result => {
       delete req.session.cartId;
