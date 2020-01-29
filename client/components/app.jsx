@@ -13,10 +13,13 @@ export default class App extends React.Component {
         name: 'checkout',
         params: {}
       },
+      showCart: false,
+      movePage: false,
       cart: [],
       products: []
     };
     this.setView = this.setView.bind(this);
+    this.toggleCart = this.toggleCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.deleteCartItem = this.deleteCartItem.bind(this);
@@ -31,6 +34,17 @@ export default class App extends React.Component {
     }, () => this.getProducts(this.state.view.name));
   }
 
+  toggleCart() {
+    this.setState({ movePage: !this.state.movePage });
+    if (this.state.showCart) {
+      setTimeout(() => {
+        this.setState({ showCart: false });
+      }, 550);
+    } else {
+      this.setState({ showCart: true });
+    }
+  }
+
   getProducts(category) {
     fetch(`/api/products/all/${category}`)
       .then(results => results.json())
@@ -41,8 +55,6 @@ export default class App extends React.Component {
   checkForCurrentPage() {
     if (this.state.view.name === 'details') {
       return <ProductDetails productId={this.state.view.params.productId} setView={this.setView} addToCart={this.addToCart} />;
-    } else if (this.state.view.name === 'cart') {
-      return <CartSummary products={this.state.cart} setView={this.setView} deleteCartItem={this.deleteCartItem} />;
     } else if (this.state.view.name === 'checkout') {
       return <CheckoutForm products={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
     } else {
@@ -69,6 +81,7 @@ export default class App extends React.Component {
         const newList = this.state.cart;
         newList.push(data);
         this.setState({ cart: newList });
+        this.toggleCart();
       });
   }
 
@@ -107,19 +120,24 @@ export default class App extends React.Component {
   }
 
   render() {
+    const cart = this.state.showCart && <CartSummary products={this.state.cart} toggleCart={this.toggleCart} setView={this.setView} deleteCartItem={this.deleteCartItem} />;
     return (
-      <div className="container-fluid">
-        <header className="row sticky-top bg-light shadow-sm">
-          <Header numberInCart={this.state.cart.length} setView={this.setView} />
-        </header>
-        <div className="row">
-          <div className="container my-3">
-            <div className="row">
-              { this.checkForCurrentPage() }
+      <>
+        { cart }
+        <div className={`container-fluid bg-white shadow-lg page ${this.state.movePage && 'cart-shown'}`}>
+          <header className="row sticky-top bg-light shadow-sm">
+            <Header numberInCart={this.state.cart.length} setView={this.setView} toggleCart={this.toggleCart} />
+          </header>
+          <div className="row">
+            <div className="container my-3">
+              <div className="row">
+                { this.checkForCurrentPage() }
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        {/* <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'} ${this.state.movePage && 'cart-shown'}`} onClick={this.toggleCart}></div> */}
+      </>
     );
   }
 }

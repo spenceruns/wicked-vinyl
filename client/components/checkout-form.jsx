@@ -1,6 +1,6 @@
 import React from 'react';
 
-class CheckoutForm extends React.Component {
+export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -230,5 +230,3 @@ class CheckoutForm extends React.Component {
     );
   }
 }
-
-export default CheckoutForm;

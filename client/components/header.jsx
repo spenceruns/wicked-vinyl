@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Header(props) {
+export default function Header(props) {
   const itemCount = (props.numberInCart === 1) ? 'Item' : 'Items';
   return (
     <nav className="container d-flex justify-content-between navbar">
@@ -9,10 +9,8 @@ function Header(props) {
         <div onClick={() => props.setView('vinyl', {})} className="nav-item">Vinyl</div>
         <div onClick={() => props.setView('turntable', {})} className="nav-item">Turntables</div>
         <div onClick={() => props.setView('accessories', {})} className="nav-item">Accessories</div>
-        <div onClick={() => props.setView('cart', {})} className="nav-item" >{props.numberInCart} {itemCount}<i className='fa fa-shopping-cart ml-2'></i></div>
+        <div onClick={props.toggleCart} className="nav-item" >{props.numberInCart} {itemCount}<i className='fa fa-shopping-cart ml-2'></i></div>
       </div>
     </nav>
   );
 }
-
-export default Header;

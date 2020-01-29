@@ -1,6 +1,6 @@
 import React from 'react';
 
-function VinylDetails(props) {
+export default function VinylDetails(props) {
   const price = `$${(props.product.price / 100).toFixed(2)}`;
   return (
     <>
@@ -24,5 +24,3 @@ function VinylDetails(props) {
     </>
   );
 }
-
-export default VinylDetails;
