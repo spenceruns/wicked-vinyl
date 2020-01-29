@@ -27,7 +27,7 @@ function Accessory(props) {
   );
 }
 
-function CartSummaryItem(props) {
+export default function CartSummaryItem(props) {
   const category = props.product.category === 'vinyl' ? <Vinyl product={props.product} /> : props.product.category === 'turntable' ? <Turntable product={props.product} /> : <Accessory product={props.product} />;
   const price = `$${(props.product.price / 100).toFixed(2)}`;
   return (
@@ -43,5 +43,3 @@ function CartSummaryItem(props) {
     </div>
   );
 }
-
-export default CartSummaryItem;

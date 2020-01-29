@@ -3,7 +3,7 @@ import VinylDetails from './vinyl-details';
 import AccessoryDetails from './accessory-details';
 import TurntableDetails from './turntable-details';
 
-class ProductDetails extends React.Component {
+export default class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,5 +41,3 @@ class ProductDetails extends React.Component {
     );
   }
 }
-
-export default ProductDetails;

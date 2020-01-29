@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TurntableDetails(props) {
+export default function TurntableDetails(props) {
   const price = `$${(props.product.price / 100).toFixed(2)}`;
   return (
     <>
@@ -22,5 +22,3 @@ function TurntableDetails(props) {
     </>
   );
 }
-
-export default TurntableDetails;

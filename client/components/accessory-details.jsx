@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AccessoryDetails(props) {
+export default function AccessoryDetails(props) {
   const price = `$${(props.product.price / 100).toFixed(2)}`;
   return (
     <>
@@ -22,5 +22,3 @@ function AccessoryDetails(props) {
     </>
   );
 }
-
-export default AccessoryDetails;

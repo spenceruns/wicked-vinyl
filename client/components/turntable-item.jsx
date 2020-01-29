@@ -1,6 +1,6 @@
 import React from 'react';
 
-function TurntableItem(props) {
+export default function TurntableItem(props) {
   const price = `$${(props.product.price / 100).toFixed(2)}`;
   return (
     <div className="col-lg-6 col-xl-4">
@@ -22,5 +22,3 @@ function TurntableItem(props) {
     </div>
   );
 }
-
-export default TurntableItem;

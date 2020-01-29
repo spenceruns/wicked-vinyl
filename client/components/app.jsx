@@ -13,13 +13,13 @@ export default class App extends React.Component {
         name: 'vinyl',
         params: {}
       },
-      cartShowing: false,
+      showCart: false,
+      movePage: false,
       cart: [],
       products: []
     };
     this.setView = this.setView.bind(this);
-    this.showCart = this.showCart.bind(this);
-    this.hideCart = this.hideCart.bind(this);
+    this.toggleCart = this.toggleCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
     this.deleteCartItem = this.deleteCartItem.bind(this);
@@ -34,12 +34,15 @@ export default class App extends React.Component {
     }, () => this.getProducts(this.state.view.name));
   }
 
-  showCart() {
-    this.setState({ cartShowing: true });
-  }
-
-  hideCart() {
-    this.setState({ cartShowing: false });
+  toggleCart() {
+    this.setState({ movePage: !this.state.movePage });
+    if (this.state.showCart) {
+      setTimeout(() => {
+        this.setState({ showCart: false });
+      }, 550);
+    } else {
+      this.setState({ showCart: true });
+    }
   }
 
   getProducts(category) {
@@ -78,6 +81,7 @@ export default class App extends React.Component {
         const newList = this.state.cart;
         newList.push(data);
         this.setState({ cart: newList });
+        this.toggleCart();
       });
   }
 
@@ -116,14 +120,13 @@ export default class App extends React.Component {
   }
 
   render() {
-    const cart = (this.state.cartShowing) ? <CartSummary products={this.state.cart} hideCart={this.hideCart} setView={this.setView} deleteCartItem={this.deleteCartItem} /> : null;
-    const pagePos = (this.state.cartShowing) ? { transform: 'translateX(-430px)', overflow: 'hidden' } : null;
+    const cart = this.state.showCart && <CartSummary products={this.state.cart} toggleCart={this.toggleCart} setView={this.setView} deleteCartItem={this.deleteCartItem} />;
     return (
       <>
         { cart }
-        <div className="container-fluid bg-white shadow page" style={pagePos}>
+        <div className={`container-fluid bg-white shadow-lg page ${this.state.movePage && 'cart-shown'}`}>
           <header className="row sticky-top bg-light shadow-sm">
-            <Header numberInCart={this.state.cart.length} setView={this.setView} showCart={this.showCart} />
+            <Header numberInCart={this.state.cart.length} setView={this.setView} toggleCart={this.toggleCart} />
           </header>
           <div className="row">
             <div className="container my-3">
@@ -133,6 +136,7 @@ export default class App extends React.Component {
             </div>
           </div>
         </div>
+        {/* <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'} ${this.state.movePage && 'cart-shown'}`} onClick={this.toggleCart}></div> */}
       </>
     );
   }

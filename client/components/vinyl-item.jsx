@@ -1,6 +1,6 @@
 import React from 'react';
 
-class VinylItem extends React.Component {
+export default class VinylItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,11 +20,10 @@ class VinylItem extends React.Component {
 
   render() {
     const price = `$${(this.props.product.price / 100).toFixed(2)}`;
-    const imgPos = this.state.isHovered ? { transform: 'translateX(60px)' } : null;
     return (
       <div className="col-lg-6 col-xl-4">
         <div className="album mb-2" >
-          <img className="card-img-top vinyl" src="/images/vinyl.png" alt='vinyl' style={imgPos} />
+          <img className={`card-img-top vinyl ${this.state.isHovered && 'show-vinyl'}`} src="/images/vinyl.png" alt='vinyl' />
           <img className="card-img-top shadow cover" onClick={() => this.props.setView('details', { productId: this.props.product.productId })} onMouseEnter={this.showVinyl} onMouseLeave={this.hideVinyl} src={this.props.product.albumArt} alt={this.props.product.album} />
           <div className="card-body p-1">
             <div className="row">
@@ -43,5 +42,3 @@ class VinylItem extends React.Component {
     );
   }
 }
-
-export default VinylItem;
