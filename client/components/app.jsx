@@ -10,7 +10,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'checkout',
+        name: 'vinyl',
         params: {}
       },
       showCart: false,
@@ -128,7 +128,7 @@ export default class App extends React.Component {
           <header className="row sticky-top bg-light shadow-sm">
             <Header numberInCart={this.state.cart.length} setView={this.setView} toggleCart={this.toggleCart} />
           </header>
-          <div className="row">
+          <div className="row full-page">
             <div className="container my-3">
               <div className="row">
                 { this.checkForCurrentPage() }
@@ -136,7 +136,7 @@ export default class App extends React.Component {
             </div>
           </div>
         </div>
-        {/* <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'} ${this.state.movePage && 'cart-shown'}`} onClick={this.toggleCart}></div> */}
+        <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'} ${this.state.movePage && 'cart-shown'}`} onClick={this.toggleCart}></div>
       </>
     );
   }

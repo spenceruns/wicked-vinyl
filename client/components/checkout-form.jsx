@@ -222,7 +222,7 @@ export default class CheckoutForm extends React.Component {
             </div>
           </div>
           <div className="d-flex justify-content-between">
-            <div className="text-muted" onClick={this.props.setView} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Continue Shopping</div>
+            <div className="text-muted" onClick={() => this.props.setView('vinyl', {})} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Continue Shopping</div>
             <button className="btn btn-success" type="submit">Place Order</button>
           </div>
         </form>

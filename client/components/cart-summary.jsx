@@ -3,7 +3,10 @@ import CartSummaryItem from './cart-summary-item';
 
 export default function CartSummary(props) {
   const cartItems = (props.products.length > 0) ? props.products.map(product => <CartSummaryItem key={product.cartItemId} product={product} deleteCartItem={props.deleteCartItem} />) : <div className="h1 text-center">No Items in Cart</div>;
-  const button = ((props.products.length > 0)) ? <button onClick={() => { props.setView('checkout', {}); }} className="btn btn-dark">Checkout</button> : null;
+  const button = ((props.products.length > 0)) && <button onClick={() => {
+    props.setView('checkout', {});
+    props.toggleCart();
+  }} className="btn btn-dark">Checkout</button>;
   let totalPrice = 0;
   props.products.forEach(product => { totalPrice += product.price; });
   totalPrice = `$${(totalPrice / 100).toFixed(2)}`;

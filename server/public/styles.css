@@ -4,6 +4,7 @@ html {
 
 * {
   animation: fade-in 500ms;
+  box-sizing: border-box;
 }
 
 .logo {
@@ -21,7 +22,7 @@ html {
   cursor: pointer;
   opacity: 1;
   z-index: 1021;
-  transition: all 500ms ease-in;
+  transition: all 550ms ease-in;
 }
 
 .cover-shadow-hidden {
@@ -75,6 +76,7 @@ html {
 position: absolute;
 right: 0;
 top: 0;
+overflow-y: auto;
 transition: transform 500ms ease-in;
 }
 
@@ -90,6 +92,10 @@ transition: transform 500ms ease-in;
 .cart-album-art {
   object-fit: contain;
   height: 10vh;
+}
+
+.full-page {
+  min-height: 89.5vh;
 }
 
 @keyframes fade-in {
