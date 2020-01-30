@@ -136,7 +136,7 @@ export default class App extends React.Component {
             </div>
           </div>
         </div>
-        <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'} ${this.state.movePage && 'cart-shown'}`} onClick={this.toggleCart}></div>
+        {/* <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'} ${this.state.movePage && 'cart-shown'}`} onClick={this.toggleCart}></div> */}
       </>
     );
   }

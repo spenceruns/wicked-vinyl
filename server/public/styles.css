@@ -12,7 +12,7 @@ html {
   transform: translateY(-3px);
 }
 
-.cover-shadow {
+/* .cover-shadow {
   background-color: rgba(0,0,0,0.3);
   position: fixed;
   top: 0;
@@ -28,7 +28,7 @@ html {
 .cover-shadow-hidden {
   opacity: 0;
   display: none;
-}
+} */
 
 .vinyl {
   object-fit: contain;

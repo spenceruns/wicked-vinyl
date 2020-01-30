@@ -20,11 +20,18 @@ export default class VinylItem extends React.Component {
 
   render() {
     const price = `$${(this.props.product.price / 100).toFixed(2)}`;
+    const vinyl = this.state.isHovered ? 'card-img-top vinyl show-vinyl' : 'card-img-top vinyl'
     return (
       <div className="col-lg-6 col-xl-4">
         <div className="album mb-2" >
-          <img className={`card-img-top vinyl ${this.state.isHovered && 'show-vinyl'}`} src="/images/vinyl.png" alt='vinyl' />
-          <img className="card-img-top shadow cover" onClick={() => this.props.setView('details', { productId: this.props.product.productId })} onMouseEnter={this.showVinyl} onMouseLeave={this.hideVinyl} src={this.props.product.albumArt} alt={this.props.product.album} />
+          <img className={ vinyl } src="/images/vinyl.png" alt='vinyl' />
+          <img
+          className="card-img-top shadow cover"
+          onClick={() => this.props.setView('details', { productId: this.props.product.productId })}
+          onMouseEnter={this.showVinyl}
+          onMouseLeave={this.hideVinyl}
+          src={this.props.product.albumArt}
+          alt={this.props.product.album} />
           <div className="card-body p-1">
             <div className="row">
               <div className="col-9">
