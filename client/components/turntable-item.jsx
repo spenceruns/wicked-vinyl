@@ -3,7 +3,7 @@ import React from 'react';
 export default function TurntableItem(props) {
   const price = `$${(props.product.price / 100).toFixed(2)}`;
   return (
-    <div className="col-lg-6 col-xl-4">
+    <div className="col-md-6 col-xl-4">
       <div className="album mb-2" >
         <img className="card-img-top shadow cover" onClick={() => props.setView('details', { productId: props.product.productId })} src={props.product.albumArt} alt={props.product.name} />
         <div className="card-body p-1">
