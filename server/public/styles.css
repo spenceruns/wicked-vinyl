@@ -35,8 +35,8 @@ html {
   height: 28vh;
   width: 28vh;
   position: absolute;
-  z-index: -1;
   transition: transform 150ms ease-in-out;
+  z-index: -1;
 }
 
 .show-vinyl {
@@ -85,6 +85,10 @@ transition: transform 500ms ease-in;
   transform: translateX(-480px);
 }
 
+.background-white {
+  background-color: white;
+}
+
 .cart-card {
   height: '30vh'
 }
@@ -95,7 +99,7 @@ transition: transform 500ms ease-in;
 }
 
 .full-page {
-  min-height: 89.5vh;
+  min-height: 88vh;
 }
 
 @keyframes fade-in {

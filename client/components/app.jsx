@@ -124,7 +124,7 @@ export default class App extends React.Component {
     return (
       <>
         { cart }
-        <div className={`container-fluid bg-white shadow-lg page ${this.state.movePage && 'cart-shown'}`}>
+        <div className={`container-fluid shadow-lg page ${this.state.showCart && 'background-white'} ${this.state.movePage && 'cart-shown'}`}>
           <header className="row sticky-top bg-light shadow-sm">
             <Header numberInCart={this.state.cart.length} setView={this.setView} toggleCart={this.toggleCart} />
           </header>

@@ -176,7 +176,7 @@ export default class CheckoutForm extends React.Component {
               </select>
             </div>
             <div className="form-group col-md-2">
-              <input onChange={this.handleZipChange} type="text" className="form-control" placeholder="Zip Code" />
+              <input onChange={this.handleZipChange} type="number" className="form-control" placeholder="Zip Code" />
             </div>
           </div>
           <header className="h5 font-weight-bold">Credit Card Information</header>
