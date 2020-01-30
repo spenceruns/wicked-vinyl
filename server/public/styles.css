@@ -12,7 +12,7 @@ html {
   transform: translateY(-3px);
 }
 
-/* .cover-shadow {
+.cover-shadow {
   background-color: rgba(0,0,0,0.3);
   position: fixed;
   top: 0;
@@ -28,7 +28,7 @@ html {
 .cover-shadow-hidden {
   opacity: 0;
   display: none;
-} */
+}
 
 .vinyl {
   object-fit: contain;
@@ -73,16 +73,19 @@ html {
 }
 
 .cart {
-position: absolute;
+position: fixed;
 right: 0;
 top: 0;
 overflow-y: auto;
 transition: transform 500ms ease-in;
+height: 98vh;
+width: 450px;
 }
 
 .cart-shown {
+  position: fixed;
   overflow: hidden;
-  transform: translateX(-480px);
+  transform: translateX(-460px);
 }
 
 .background-white {
@@ -105,4 +108,14 @@ transition: transform 500ms ease-in;
 @keyframes fade-in {
   0% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+@media (max-width: 576px) {
+  .cart-shown {
+    transform: translateX(-315px);
+  }
+
+  .cart {
+    width: 300px;
+  }
 }

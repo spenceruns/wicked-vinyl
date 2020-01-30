@@ -53,12 +53,13 @@ export default class App extends React.Component {
   }
 
   checkForCurrentPage() {
-    if (this.state.view.name === 'details') {
-      return <ProductDetails productId={this.state.view.params.productId} setView={this.setView} addToCart={this.addToCart} />;
-    } else if (this.state.view.name === 'checkout') {
-      return <CheckoutForm products={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
-    } else {
-      return <ProductList products={this.state.products} view={this.state.view.name} setView={this.setView} addToCart={this.addToCart} />;
+    switch (this.state.view.name) {
+      case 'details':
+        return <ProductDetails productId={this.state.view.params.productId} setView={this.setView} addToCart={this.addToCart} />;
+      case 'checkout':
+        return <CheckoutForm products={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
+      default:
+        return <ProductList products={this.state.products} view={this.state.view.name} setView={this.setView} addToCart={this.addToCart} />;
     }
   }
 
@@ -125,6 +126,7 @@ export default class App extends React.Component {
       <>
         { cart }
         <div className={`container-fluid shadow-lg page ${this.state.showCart && 'background-white'} ${this.state.movePage && 'cart-shown'}`}>
+          <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'}`} onClick={this.toggleCart}></div>
           <header className="row sticky-top bg-light shadow-sm">
             <Header numberInCart={this.state.cart.length} setView={this.setView} toggleCart={this.toggleCart} />
           </header>
@@ -136,7 +138,6 @@ export default class App extends React.Component {
             </div>
           </div>
         </div>
-        {/* <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'} ${this.state.movePage && 'cart-shown'}`} onClick={this.toggleCart}></div> */}
       </>
     );
   }

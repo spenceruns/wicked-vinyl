@@ -28,13 +28,17 @@ function Accessory(props) {
 }
 
 export default function CartSummaryItem(props) {
-  const category = props.product.category === 'vinyl' ? <Vinyl product={props.product} /> : props.product.category === 'turntable' ? <Turntable product={props.product} /> : <Accessory product={props.product} />;
+  const category = props.product.category === 'vinyl'
+    ? <Vinyl product={props.product} />
+    : props.product.category === 'turntable'
+      ? <Turntable product={props.product} />
+      : <Accessory product={props.product} />;
   const price = `$${(props.product.price / 100).toFixed(2)}`;
   return (
     <div className="card p-3">
       <div className="row">
-        <img className="shadow-sm cart-album-art mx-lg-4 mx-auto" src={props.product.albumArt} alt={props.product.album} />
-        <div className="col-sm-12 col-lg-4 text-center text-lg-left">
+        <img className="shadow-sm cart-album-art mx-auto" src={props.product.albumArt} alt={props.product.album} />
+        <div className="col-4 text-left">
           {category}
           <div className="card-subtitle text-muted">{price}</div>
         </div>

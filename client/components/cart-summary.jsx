@@ -11,7 +11,7 @@ export default function CartSummary(props) {
   props.products.forEach(product => { totalPrice += product.price; });
   totalPrice = `$${(totalPrice / 100).toFixed(2)}`;
   return (
-    <div className="cart container col-md-5 col-lg-4 col-xl-3">
+    <div className="cart container">
       <div className="d-flex justify-content-between">
         <div>
           <div className="text-muted" onClick={props.toggleCart} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Back to catalog</div>
