@@ -37,7 +37,7 @@ export default function CartSummaryItem(props) {
   return (
     <div className="card p-3">
       <div className="row">
-        <img className="shadow-sm cart-album-art mx-auto" src={props.product.albumArt} alt={props.product.album} />
+        <img className="shadow-sm cart-album-art mx-2 mx-md-4" src={props.product.albumArt} alt={props.product.album} />
         <div className="col-4 text-left">
           {category}
           <div className="card-subtitle text-muted">{price}</div>

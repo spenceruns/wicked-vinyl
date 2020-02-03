@@ -39,7 +39,7 @@ export default class App extends React.Component {
     if (this.state.showCart) {
       setTimeout(() => {
         this.setState({ showCart: false });
-      }, 550);
+      }, 350);
     } else {
       this.setState({ showCart: true });
     }
