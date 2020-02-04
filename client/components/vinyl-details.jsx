@@ -14,7 +14,7 @@ export default function VinylDetails(props) {
           <button className="btn btn-primary" onClick={() => props.addToCart(props.product)} >Add to Cart</button>
         </div>
       </div>
-      <div className="row mt-1 mt-md-n5">
+      <div className="row mt-1">
         <div className="card-body">
           <div className="card-title"><strong>Genre: </strong>{props.product.genre}</div>
           <div className="card-title"><strong>Release Year: </strong>{props.product.releaseYear}</div>

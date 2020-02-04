@@ -22,25 +22,27 @@ export default class VinylItem extends React.Component {
     const price = `$${(this.props.product.price / 100).toFixed(2)}`;
     const vinyl = this.state.isHovered ? 'card-img-top vinyl show-vinyl' : 'card-img-top vinyl';
     return (
-      <div className="mt-sm-4 col-sm-4 col-md-6 col-xl-4">
-        <div className="album mb-5 mt-5 mb-md-3" >
-          <img className={ vinyl } src="/images/vinyl.png" alt='vinyl' />
-          <img
-            className="card-img-top shadow cover"
-            onClick={() => this.props.setView('details', { productId: this.props.product.productId })}
-            onMouseEnter={this.showVinyl}
-            onMouseLeave={this.hideVinyl}
-            src={this.props.product.albumArt}
-            alt={this.props.product.album} />
-          <div className="card-body p-1">
-            <div className="row">
-              <div className="col-12 col-md-9">
+      <div className="mt-sm-4 col-sm-4 col-md-6 col-xl-4 mb-4 mb-sm-0">
+        <div className="m-auto album-width" >
+          <div className="album position-relative">
+            <img className={ vinyl } src="/images/vinyl.png" alt='vinyl' />
+            <img
+              className="card-img-top shadow cover"
+              onClick={() => this.props.setView('details', { productId: this.props.product.productId })}
+              onMouseEnter={this.showVinyl}
+              onMouseLeave={this.hideVinyl}
+              src={this.props.product.albumArt}
+              alt={this.props.product.album} />
+          </div>
+          <div className="card-body p-0 my-3">
+            <div className="d-flex justify-content-between">
+              <div className="pr-2">
                 <strong className="card-title font-weight-bolder">{this.props.product.album}</strong>
                 <div className="card-text font-weight-light mt-n1 mb-1">{this.props.product.artist}</div>
                 <div className="card-subtitle text-muted">{price}</div>
               </div>
-              <div className="col-3 mt-1">
-                <button className="btn btn-primary d-none d-md-block" onClick={() => this.props.addToCart(this.props.product)} >Add</button>
+              <div>
+                <button className="btn btn-primary" onClick={() => this.props.addToCart(this.props.product)} >Add</button>
               </div>
             </div>
           </div>

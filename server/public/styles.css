@@ -32,8 +32,6 @@ html {
 
 .vinyl {
   object-fit: contain;
-  height: 28vh;
-  width: 28vh;
   position: absolute;
   transition: transform 150ms ease-in-out;
   z-index: -1;
@@ -44,14 +42,12 @@ html {
 }
 
 .album {
-  height: 37vh;
-  width: 28vh;
+  width: 100%;
   margin: auto;
 }
 
 .cover {
   object-fit: contain;
-  height: 28vh;
   cursor: pointer;
 }
 
@@ -105,6 +101,10 @@ width: 450px;
   min-height: 100vh;
 }
 
+.album-width {
+  width: 75%;
+}
+
 @keyframes fade-in {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -117,5 +117,9 @@ width: 450px;
 
   .cart {
     width: 300px;
+  }
+
+  .album-width {
+    width: 100%;
   }
 }

@@ -14,7 +14,7 @@ export default function AccessoryDetails(props) {
           <button className="btn btn-primary" onClick={() => props.addToCart(props.product)} >Add to Cart</button>
         </div>
       </div>
-      <div className="row mt-2 mt-md-n5">
+      <div className="row mt-1">
         <div className="card-body">
           <p>{props.product.description}</p>
         </div>
