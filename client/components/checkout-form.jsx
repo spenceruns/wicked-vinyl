@@ -4,17 +4,17 @@ export default class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fName: null,
-      lName: null,
-      address1: null,
-      address2: null,
-      city: null,
-      state: null,
-      zip: null,
-      creditCardNumber: null,
-      month: null,
-      year: null,
-      cvv: null,
+      fName: '',
+      lName: '',
+      address1: '',
+      address2: '',
+      city: '',
+      state: '',
+      zip: '',
+      creditCardNumber: '',
+      month: '',
+      year: '',
+      cvv: '',
       error: false
     };
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -86,9 +86,9 @@ export default class CheckoutForm extends React.Component {
   }
 
   checkForm() {
-    for (const customer in this.state) {
-      if (customer === 'address2') continue;
-      if (this.state[customer] === null || this.state[customer] === '') {
+    for (const customerInfo in this.state) {
+      if (customerInfo === 'address2') continue;
+      if (this.state[customerInfo] === '') {
         this.setState({ error: true });
         setTimeout(() => this.setState({ error: false }), 10000);
         return;

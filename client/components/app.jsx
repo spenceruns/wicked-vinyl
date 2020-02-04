@@ -111,7 +111,7 @@ export default class App extends React.Component {
             params: {}
           },
           cart: []
-        });
+        }, () => this.getProducts('vinyl'));
       });
   }
 
