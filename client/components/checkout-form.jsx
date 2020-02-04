@@ -14,7 +14,8 @@ export default class CheckoutForm extends React.Component {
       creditCardNumber: null,
       month: null,
       year: null,
-      cvv: null
+      cvv: null,
+      error: false
     };
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
@@ -84,6 +85,18 @@ export default class CheckoutForm extends React.Component {
     this.setState({ cvv: event.target.value });
   }
 
+  checkForm() {
+    for (const customer in this.state) {
+      if (customer === 'address2') continue;
+      if (this.state[customer] === null || this.state[customer] === '') {
+        this.setState({ error: true });
+        setTimeout(() => this.setState({ error: false }), 10000);
+        return;
+      }
+    }
+    this.props.placeOrder(this.state);
+  }
+
   render() {
     let totalPrice = 0;
     this.props.products.forEach(product => { totalPrice += product.price; });
@@ -98,7 +111,7 @@ export default class CheckoutForm extends React.Component {
         </div>
         <form className="col-12" onSubmit={event => {
           event.preventDefault();
-          this.props.placeOrder(this.state);
+          this.checkForm();
         }}>
           <header className="h5 font-weight-bold">Shipping/Billing Information</header>
           <div className="form-row">
@@ -188,7 +201,7 @@ export default class CheckoutForm extends React.Component {
               <select onChange={this.handleMonthChange} name="month" className="form-control">
                 <option value="month">Month</option>
                 <option value="01">January</option>
-                <option value="02">February</option>
+                <option value="02">February</option>``
                 <option value="03">March</option>
                 <option value="04">April</option>
                 <option value="05">May</option>
@@ -223,6 +236,7 @@ export default class CheckoutForm extends React.Component {
           </div>
           <div className="d-flex justify-content-between">
             <div className="text-muted" onClick={() => this.props.setView('vinyl', {})} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Continue Shopping</div>
+            {this.state.error && <div className="text-danger">Please fill out all the information before placing an order.</div>}
             <button className="btn btn-success" type="submit">Place Order</button>
           </div>
         </form>

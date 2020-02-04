@@ -101,6 +101,10 @@ width: 450px;
   height: 10vh;
 }
 
+.full-page {
+  min-height: 100vh;
+}
+
 @keyframes fade-in {
   0% { opacity: 0; }
   100% { opacity: 1; }
