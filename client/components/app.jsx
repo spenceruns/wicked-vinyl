@@ -39,7 +39,7 @@ export default class App extends React.Component {
     if (this.state.showCart) {
       setTimeout(() => {
         this.setState({ showCart: false });
-      }, 350);
+      }, 300);
     } else {
       this.setState({ showCart: true });
     }
@@ -125,12 +125,12 @@ export default class App extends React.Component {
     return (
       <>
         { cart }
-        <div className={`container-fluid shadow-lg page ${this.state.showCart && 'background-white'} ${this.state.movePage && 'cart-shown'}`}>
+        <div className={`container-fluid page ${this.state.showCart && 'shadow-lg background-white'} ${this.state.movePage && 'cart-shown'}`}>
           <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'}`} onClick={this.toggleCart}></div>
           <header className="row sticky-top bg-light shadow-sm">
             <Header numberInCart={this.state.cart.length} setView={this.setView} toggleCart={this.toggleCart} />
           </header>
-          <div className="row full-page">
+          <div className="row">
             <div className="container my-3">
               <div className="row">
                 { this.checkForCurrentPage() }

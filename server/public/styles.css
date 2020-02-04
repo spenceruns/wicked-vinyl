@@ -101,13 +101,16 @@ width: 450px;
   height: 10vh;
 }
 
-.full-page {
-  min-height: 88vh;
-}
-
 @keyframes fade-in {
   0% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+@media (max-width: 700px) {
+
+  .full-page {
+    min-height: 200vh;
+  }
 }
 
 @media (max-width: 576px) {
@@ -117,5 +120,9 @@ width: 450px;
 
   .cart {
     width: 300px;
+  }
+
+  .full-page {
+    min-width: 200vh;
   }
 }

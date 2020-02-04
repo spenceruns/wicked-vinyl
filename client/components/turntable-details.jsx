@@ -14,7 +14,7 @@ export default function TurntableDetails(props) {
           <button className="btn btn-primary" onClick={() => props.addToCart(props.product)} >Add to Cart</button>
         </div>
       </div>
-      <div className="row mt-n5">
+      <div className="row mt-1 mt-n5">
         <div className="card-body">
           <p>{props.product.description}</p>
         </div>

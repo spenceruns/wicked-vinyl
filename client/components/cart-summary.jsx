@@ -2,7 +2,9 @@ import React from 'react';
 import CartSummaryItem from './cart-summary-item';
 
 export default function CartSummary(props) {
-  const cartItems = (props.products.length > 0) ? props.products.map(product => <CartSummaryItem key={product.cartItemId} product={product} deleteCartItem={props.deleteCartItem} />) : <div className="h1 text-center">No Items in Cart</div>;
+  const cartItems = (props.products.length > 0)
+    ? props.products.map(product => <CartSummaryItem key={product.cartItemId} product={product} deleteCartItem={props.deleteCartItem} />)
+    : <div className="h1 text-center">No Items in Cart</div>;
   const button = ((props.products.length > 0)) && <button onClick={() => {
     props.setView('checkout', {});
     props.toggleCart();
