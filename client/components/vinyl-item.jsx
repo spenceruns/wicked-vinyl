@@ -40,7 +40,7 @@ export default class VinylItem extends React.Component {
                 <div className="card-subtitle text-muted">{price}</div>
               </div>
               <div className="col-3 mt-1">
-                <button className="btn btn-primary d-sm-none" onClick={() => this.props.addToCart(this.props.product)} >Add</button>
+                <button className="btn btn-primary d-none d-md-block" onClick={() => this.props.addToCart(this.props.product)} >Add</button>
               </div>
             </div>
           </div>
