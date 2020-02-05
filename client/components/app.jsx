@@ -36,11 +36,9 @@ export default class App extends React.Component {
 
   toggleCart() {
     if (this.state.showCart) {
+      this.setState({ movePage: false });
       setTimeout(() => {
-        this.setState({
-          movePage: false,
-          showCart: false
-        });
+        this.setState({ showCart: false });
       }, 300);
     } else {
       this.setState({
