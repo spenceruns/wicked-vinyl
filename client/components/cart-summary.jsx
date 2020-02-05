@@ -21,7 +21,7 @@ export default function CartSummary(props) {
     <div className="cart container">
       <div className="d-flex justify-content-between">
         <div>
-          <div className="text-muted" onClick={props.toggleCart} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Back to catalog</div>
+          <div className="text-muted" onClick={props.toggleCart} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Close Cart</div>
           <h1>Cart</h1>
         </div>
       </div>
