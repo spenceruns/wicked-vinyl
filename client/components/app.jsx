@@ -13,16 +13,17 @@ export default class App extends React.Component {
         name: 'vinyl',
         params: {}
       },
-      showCart: false,
-      movePage: false,
+      showCart: true,
+      movePage: true,
       cart: [],
       products: []
     };
     this.setView = this.setView.bind(this);
     this.toggleCart = this.toggleCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
-    this.placeOrder = this.placeOrder.bind(this);
+    this.decreaseCartQuantity = this.decreaseCartQuantity.bind(this);
     this.deleteCartItem = this.deleteCartItem.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
   }
 
   setView(name, params) {
@@ -58,18 +59,29 @@ export default class App extends React.Component {
   checkForCurrentPage() {
     switch (this.state.view.name) {
       case 'details':
-        return <ProductDetails productId={this.state.view.params.productId} setView={this.setView} addToCart={this.addToCart} />;
+        return <ProductDetails
+          productId={this.state.view.params.productId}
+          setView={this.setView}
+          addToCart={this.addToCart} />;
       case 'checkout':
-        return <CheckoutForm products={this.state.cart} setView={this.setView} placeOrder={this.placeOrder} />;
+        return <CheckoutForm
+          products={this.state.cart}
+          setView={this.setView}
+          placeOrder={this.placeOrder} />;
       default:
-        return <ProductList products={this.state.products} view={this.state.view.name} setView={this.setView} addToCart={this.addToCart} />;
+        return <ProductList
+          products={this.state.products}
+          iew={this.state.view.name}
+          setView={this.setView}
+          addToCart={this.addToCart} />;
     }
   }
 
   getCartItems() {
     fetch('/api/cart')
       .then(result => result.json())
-      .then(data => this.setState({ cart: data }));
+      .then(data => this.setState({ cart: data }))
+      .catch(err => console.error(err));
   }
 
   addToCart(product) {
@@ -86,8 +98,31 @@ export default class App extends React.Component {
         const index = newList.findIndex(item => item.productId === data.productId);
         ~index ? newList[index] = data : newList.push(data);
         this.setState({ cart: newList });
-        this.toggleCart();
-      });
+        !this.state.showCart && this.toggleCart();
+      })
+      .catch(err => console.error(err));
+  }
+
+  decreaseCartQuantity(product) {
+    fetch(`/api/cart/${product.productId}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.quantity === 1) {
+          this.deleteCartItem(product.cartItemId);
+        } else {
+          fetch(`/api/cart/${product.productId}`, {
+            method: 'PATCH'
+          })
+            .then(result => result.json())
+            .then(data => {
+              const newList = this.state.cart;
+              const index = newList.findIndex(item => item.productId === data.productId);
+              ~index ? newList[index] = data : newList.push(data);
+              this.setState({ cart: newList });
+            });
+        }
+      })
+      .catch(err => console.error(err));
   }
 
   deleteCartItem(cartItemId) {
@@ -97,7 +132,8 @@ export default class App extends React.Component {
       .then(() => {
         const newList = this.state.cart.filter(cartItem => cartItem.cartItemId !== cartItemId);
         this.setState({ cart: newList });
-      });
+      })
+      .catch(err => console.error(err));
   }
 
   placeOrder(customerInfo) {
@@ -116,7 +152,8 @@ export default class App extends React.Component {
           },
           cart: []
         }, () => this.getProducts('vinyl'));
-      });
+      })
+      .catch(err => console.error(err));
   }
 
   componentDidMount() {
@@ -125,7 +162,13 @@ export default class App extends React.Component {
   }
 
   render() {
-    const cart = this.state.showCart && <CartSummary products={this.state.cart} toggleCart={this.toggleCart} setView={this.setView} deleteCartItem={this.deleteCartItem} />;
+    const cart = this.state.showCart && <CartSummary
+      products={this.state.cart}
+      toggleCart={this.toggleCart}
+      setView={this.setView}
+      addToCart={this.addToCart}
+      decreaseItemQuantity={this.decreaseCartQuantity}
+      deleteCartItem={this.deleteCartItem} />;
     let quantity = 0;
     this.state.cart.forEach(item => {
       quantity += item.quantity;

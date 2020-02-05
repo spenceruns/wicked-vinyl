@@ -83,6 +83,17 @@ app.get('/api/cart', (req, res, next) => {
   }
 });
 
+app.get('/api/cart/:productId', (req, res, next) => {
+  const checkQuantitySQL = `
+  select "quantity"
+    from "cartItems"
+   where "cartId" = $1 and "productId" = $2
+  `;
+  const checkQuantityParams = [req.session.cartId, req.params.productId];
+  db.query(checkQuantitySQL, checkQuantityParams)
+    .then(response => res.json(response.rows[0]));
+});
+
 app.post('/api/cart/:productId', (req, res, next) => {
   if (req.params.productId < 1) next(new ClientError('Product ID must be a positive integer', 400));
   const sql = `
@@ -148,6 +159,39 @@ app.post('/api/cart/:productId', (req, res, next) => {
           })
       );
     })
+    .then(result => {
+      const cartItemIdSql = `
+      select "c"."cartItemId",
+            "c"."price",
+            "c"."quantity",
+            "p"."productId",
+            "p"."albumArt",
+            "p"."album",
+            "p"."description",
+            "p"."name",
+            "p"."brand",
+            "p"."color",
+            "p"."category"
+        from "cartItems" as "c"
+        join "products" as "p" using ("productId")
+      where "c"."cartItemId" = $1
+      `;
+      const cartItemId = [result.rows[0].cartItemId];
+      return db.query(cartItemIdSql, cartItemId)
+        .then(data => res.status(201).json(data.rows[0]));
+    })
+    .catch(err => next(err));
+});
+
+app.patch('/api/cart/:productId', (req, res, next) => {
+  const cartIdSql = `
+      update "cartItems"
+        set "quantity" = "quantity" - 1
+      where "cartId" = $1 and "productId" = $2
+  returning "cartItemId";
+  `;
+  const params = [req.session.cartId, req.params.productId];
+  db.query(cartIdSql, params)
     .then(result => {
       const cartItemIdSql = `
       select "c"."cartItemId",

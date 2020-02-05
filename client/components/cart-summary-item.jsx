@@ -42,7 +42,11 @@ export default function CartSummaryItem(props) {
           <div className="card-subtitle text-muted mb-2">{price}</div>
           <div className="d-flex justify-content-between">
             <button className="btn btn-danger my-auto" onClick={() => props.deleteCartItem(props.product.cartItemId)} >Delete</button>
-            <div className="number">{props.product.quantity}</div>
+            <div className="d-flex justify-content-center align-items-center">
+              <button className="btn btn-sm" onClick={() => props.decreaseItemQuantity(props.product)}><i className="fas fa-minus"></i></button>
+              <div className="px-3">{props.product.quantity}</div>
+              <button className="btn btn-sm" onClick={() => props.addToCart(props.product)}><i className="fas fa-plus"></i></button>
+            </div>
           </div>
         </div>
       </div>
