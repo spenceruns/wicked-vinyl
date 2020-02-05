@@ -13,8 +13,8 @@ export default class App extends React.Component {
         name: 'vinyl',
         params: {}
       },
-      showCart: true,
-      movePage: true,
+      showCart: false,
+      movePage: false,
       cart: [],
       products: []
     };
