@@ -135,9 +135,17 @@ ALTER SEQUENCE public."carts_cartId_seq" OWNED BY public.carts."cartId";
 CREATE TABLE public.orders (
     "orderId" integer NOT NULL,
     "cartId" integer NOT NULL,
-    name text NOT NULL,
-    "creditCard" text NOT NULL,
-    "shippingAddress" text NOT NULL,
+    "fName" text NOT NULL,
+    "lName" text NOT NULL,
+    address1 text NOT NULL,
+    address2 text NOT NULL,
+    city text NOT NULL,
+    state text NOT NULL,
+    zip integer NOT NULL,
+    "creditCardNumber" integer NOT NULL,
+    month text NOT NULL,
+    year integer NOT NULL,
+    cvv integer NOT NULL,
     "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL
 );
 
@@ -296,6 +304,40 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
 59	32	8	2299
 60	33	29	2199
 61	33	1	1999
+102	37	3	2999
+103	37	5	1999
+104	37	2	1799
+114	38	2	1799
+115	38	5	1999
+116	38	3	2999
+117	38	1	1999
+118	38	2	1799
+119	38	3	2999
+120	39	2	1799
+127	40	2	1799
+131	41	3	2999
+133	42	3	2999
+149	44	4	2299
+150	44	10	2999
+152	44	3	2999
+153	44	15	2499
+155	45	17	2599
+159	47	1	1999
+160	48	2	1799
+161	49	4	2299
+162	50	1	1999
+163	51	2	1799
+164	52	3	2999
+165	53	1	1999
+167	54	2	1799
+168	54	8	2299
+169	54	50	42999
+170	54	3	2999
+171	54	3	2999
+172	55	3	2999
+173	55	3	2999
+174	55	1	1999
+175	56	2	1799
 \.
 
 
@@ -340,6 +382,26 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 34	2020-01-17 17:47:30.615548+00
 35	2020-01-18 22:31:30.488708+00
 36	2020-01-19 23:40:44.902889+00
+37	2020-01-20 01:36:05.404879+00
+38	2020-01-20 17:21:27.216063+00
+39	2020-01-26 01:53:30.166949+00
+40	2020-01-29 17:57:31.473893+00
+41	2020-01-30 02:59:08.114888+00
+42	2020-01-30 03:30:41.794721+00
+43	2020-01-30 18:09:12.78561+00
+44	2020-01-31 04:16:26.765346+00
+45	2020-02-03 00:33:24.021222+00
+46	2020-02-04 16:45:02.136125+00
+47	2020-02-04 18:18:42.697978+00
+48	2020-02-04 18:51:17.972521+00
+49	2020-02-04 19:16:19.399682+00
+50	2020-02-04 19:19:19.610978+00
+51	2020-02-04 19:20:25.182135+00
+52	2020-02-04 19:22:22.401597+00
+53	2020-02-04 19:23:37.929478+00
+54	2020-02-04 23:14:42.279272+00
+55	2020-02-04 23:36:04.889455+00
+56	2020-02-05 00:12:22.841784+00
 \.
 
 
@@ -347,17 +409,18 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", "createdAt") FROM stdin;
-1	26	Spencer	1234	Yes	2020-01-15 20:35:24.000249+00
-2	26	Spencer	1234	Yes	2020-01-15 20:36:01.767532+00
-3	26	Spencer	1234	Yes	2020-01-15 20:36:33.187627+00
-4	26	Spencer	1234	Yes	2020-01-15 20:37:51.071585+00
-5	26	Spencer	1234	Yes	2020-01-15 20:38:38.745353+00
-6	25	asd	asd	asd	2020-01-15 23:32:29.437784+00
-7	27	sdf	sdf	sdfds	2020-01-15 23:37:29.696275+00
-8	28	Peepo	123456789022	101 Peepo Lane	2020-01-15 23:38:47.014892+00
-9	29	Lucy	123456789	San Fran	2020-01-15 23:44:01.445071+00
-10	30	zxcz	zxc	zxczc	2020-01-16 17:09:36.887099+00
+COPY public.orders ("orderId", "cartId", "fName", "lName", address1, address2, city, state, zip, "creditCardNumber", month, year, cvv, "createdAt") FROM stdin;
+1	37	asd	asd	asd	asd	aasd	AK	12121	1211212121	02	2021	121	2020-01-20 06:48:42.514849+00
+5	47	s	s	2		s	AL	99	222	01	2020	222	2020-02-04 18:43:10.726588+00
+8	48	ss	ss	s		2	AL	2	22	01	2020	22	2020-02-04 19:15:32.237607+00
+9	49	1	1	1		1	AL	1	1	01	2020	1	2020-02-04 19:18:17.459666+00
+10	50	2	2	2		2	AL	2	2	01	2020	2	2020-02-04 19:19:29.442641+00
+11	51	3	3	3	3	3	AL	3	3	01	2020	3	2020-02-04 19:21:04.612129+00
+12	52	4	4	4	4	4	AR	4	4	01	2020	4	2020-02-04 19:22:34.655081+00
+13	53	5	5	5	5	5	CA	5	5	01	2020	5	2020-02-04 19:23:50.215202+00
+14	54	5	5	5		5	AL	5	5	01	2020	5	2020-02-04 23:33:12.344594+00
+15	55	7	7	7		7	AK	7	7	01	2020	7	2020-02-04 23:41:20.425271+00
+16	56	34	34	34		34	AL	34	34	01	2020	34	2020-02-05 00:12:32.609414+00
 \.
 
 
@@ -427,21 +490,21 @@ COPY public.products ("productId", album, artist, "releaseYear", price, "albumAr
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 99, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 175, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 36, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 56, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 10, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 16, true);
 
 
 --
