@@ -135,8 +135,8 @@ ALTER SEQUENCE public."carts_cartId_seq" OWNED BY public.carts."cartId";
 CREATE TABLE public.orders (
     "orderId" integer NOT NULL,
     "cartId" integer NOT NULL,
-    fname text NOT NULL,
-    lname text NOT NULL,
+    "fName" text NOT NULL,
+    "lName" text NOT NULL,
     address1 text NOT NULL,
     address2 text NOT NULL,
     city text NOT NULL,
@@ -244,6 +244,7 @@ ALTER TABLE ONLY public.products ALTER COLUMN "productId" SET DEFAULT nextval('p
 
 COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
 190	60	1	1999
+191	61	2	1799
 \.
 
 
@@ -253,6 +254,7 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
 
 COPY public.carts ("cartId", "createdAt") FROM stdin;
 60	2020-02-05 01:25:41.819618+00
+61	2020-02-05 01:34:58.502547+00
 \.
 
 
@@ -260,7 +262,7 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.orders ("orderId", "cartId", fname, lname, address1, address2, city, state, zip, "creditCardNumber", month, year, cvv, "createdAt") FROM stdin;
+COPY public.orders ("orderId", "cartId", "fName", "lName", address1, address2, city, state, zip, "creditCardNumber", month, year, cvv, "createdAt") FROM stdin;
 \.
 
 
@@ -330,14 +332,14 @@ COPY public.products ("productId", album, artist, "releaseYear", price, "albumAr
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 190, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 191, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 60, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 61, true);
 
 
 --
