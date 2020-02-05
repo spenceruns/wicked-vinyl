@@ -62,6 +62,7 @@ app.get('/api/cart', (req, res, next) => {
     const sessionSql = `
     select "c"."cartItemId",
            "c"."price",
+           "c"."quantity",
            "p"."productId",
            "p"."albumArt",
            "p"."album",
@@ -118,18 +119,40 @@ app.post('/api/cart/:productId', (req, res, next) => {
     })
     .then(data => {
       req.session.cartId = data.cartId;
-      const cartIdSql = `
-      insert into "cartItems" ("cartId", "productId", "price")
-      values ($1, $2, $3)
-      returning "cartItemId"
+      const checkProductIdSql = `
+      select * from "cartItems"
+      where "cartId" = $1 and "productId" = $2
       `;
-      const cartInfo = [data.cartId, req.params.productId, data.price];
-      return db.query(cartIdSql, cartInfo);
+      const checkProductIdParams = [data.cartId, req.params.productId];
+      return (
+        db.query(checkProductIdSql, checkProductIdParams)
+          .then(response => {
+            if (response.rowCount === 0) {
+              const cartIdSql = `
+              insert into "cartItems" ("cartId", "productId", "price", "quantity")
+              values ($1, $2, $3, 1)
+              returning "cartItemId"
+              `;
+              const cartInfo = [data.cartId, req.params.productId, data.price];
+              return db.query(cartIdSql, cartInfo);
+            } else {
+              const cartIdSql = `
+                 update "cartItems"
+                    set "quantity" = "quantity" + 1
+                  where "cartId" = $1 and "productId" = $2
+              returning "cartItemId";
+              `;
+              const params = [data.cartId, req.params.productId];
+              return db.query(cartIdSql, params);
+            }
+          })
+      );
     })
     .then(result => {
       const cartItemIdSql = `
       select "c"."cartItemId",
             "c"."price",
+            "c"."quantity",
             "p"."productId",
             "p"."albumArt",
             "p"."album",

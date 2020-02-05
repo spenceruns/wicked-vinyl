@@ -15,6 +15,19 @@ export default class CheckoutForm extends React.Component {
       month: '',
       year: '',
       cvv: '',
+      validation: {
+        fName: true,
+        lName: true,
+        address1: true,
+        address2: true,
+        city: true,
+        state: true,
+        zip: true,
+        creditCardNumber: true,
+        month: true,
+        year: true,
+        cvv: true
+      },
       error: false
     };
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -189,13 +202,13 @@ export default class CheckoutForm extends React.Component {
               </select>
             </div>
             <div className="form-group col-md-2">
-              <input onChange={this.handleZipChange} type="number" className="form-control" placeholder="Zip Code" />
+              <input onChange={this.handleZipChange} type="tel" className="form-control" placeholder="Zip Code" />
             </div>
           </div>
           <header className="h5 font-weight-bold">Credit Card Information</header>
           <div className="form-row">
             <div className="form-group col-md-6">
-              <input onChange={this.handleCreditCardNumberChange} className="form-control" name="credit-card" type="number" placeholder="Credit Card Number" />
+              <input onChange={this.handleCreditCardNumberChange} className="form-control" name="credit-card" type="tel" placeholder="Credit Card Number" />
             </div>
             <div className="form-group col-md-2">
               <select onChange={this.handleMonthChange} name="month" className="form-control">
@@ -231,7 +244,7 @@ export default class CheckoutForm extends React.Component {
               </select>
             </div>
             <div className="form-group col-md-2">
-              <input onChange={this.handleCvvChange} type="number" className="form-control" placeholder="CVV"/>
+              <input onChange={this.handleCvvChange} type="tel" className="form-control" placeholder="CVV"/>
             </div>
           </div>
           <div className="d-flex justify-content-between">

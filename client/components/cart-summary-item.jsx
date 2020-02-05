@@ -35,12 +35,15 @@ export default function CartSummaryItem(props) {
     <div className="card p-2 mb-3">
       <div className="d-flex align-start">
         <img className="shadow-sm cart-album-art mr-2 my-auto" src={props.product.albumArt} alt={props.product.album} />
-        <div className="text-left">
+        <div className="text-left w-100">
           <div className="mb-1">
             {category}
           </div>
           <div className="card-subtitle text-muted mb-2">{price}</div>
-          <button className="btn btn-danger my-auto" onClick={() => props.deleteCartItem(props.product.cartItemId)} >Delete</button>
+          <div className="d-flex justify-content-between">
+            <button className="btn btn-danger my-auto" onClick={() => props.deleteCartItem(props.product.cartItemId)} >Delete</button>
+            <div className="number">{props.product.quantity}</div>
+          </div>
         </div>
       </div>
     </div>
