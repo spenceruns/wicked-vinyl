@@ -126,13 +126,17 @@ export default class App extends React.Component {
 
   render() {
     const cart = this.state.showCart && <CartSummary products={this.state.cart} toggleCart={this.toggleCart} setView={this.setView} deleteCartItem={this.deleteCartItem} />;
+    let quantity = 0;
+    this.state.cart.forEach(item => {
+      quantity += item.quantity;
+    });
     return (
       <>
         { cart }
         <div className={`container-fluid page ${this.state.showCart && 'background-white'} ${this.state.movePage && 'cart-shown'}`}>
           <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'}`} onClick={this.toggleCart}></div>
           <header className="row sticky-top bg-light shadow-sm">
-            <Header numberInCart={this.state.cart.length} setView={this.setView} toggleCart={this.toggleCart} />
+            <Header numberInCart={quantity} setView={this.setView} toggleCart={this.toggleCart} />
           </header>
           <div className="row">
             <div className="container full-page my-3">
