@@ -83,7 +83,8 @@ export default class App extends React.Component {
       .then(result => result.json())
       .then(data => {
         const newList = this.state.cart;
-        newList.push(data);
+        const index = newList.findIndex(item => item.productId === data.productId);
+        ~index ? newList[index] = data : newList.push(data);
         this.setState({ cart: newList });
         this.toggleCart();
       });
