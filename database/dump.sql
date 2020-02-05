@@ -328,21 +328,21 @@ COPY public.products ("productId", album, artist, "releaseYear", price, "albumAr
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 189, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 1, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 59, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 1, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 20, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 1, true);
 
 
 --
@@ -394,4 +394,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-
