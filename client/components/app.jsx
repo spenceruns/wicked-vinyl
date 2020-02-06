@@ -4,13 +4,14 @@ import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
+import ConfirmationPage from './confirmation-page';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       view: {
-        name: 'vinyl',
+        name: 'confirmation',
         params: {}
       },
       showCart: false,
@@ -58,6 +59,10 @@ export default class App extends React.Component {
 
   checkForCurrentPage() {
     switch (this.state.view.name) {
+      case 'confirmation':
+        return <ConfirmationPage
+          cart={this.state.cart}
+          setView={this.setView} />;
       case 'details':
         return <ProductDetails
           productId={this.state.view.params.productId}
@@ -71,7 +76,7 @@ export default class App extends React.Component {
       default:
         return <ProductList
           products={this.state.products}
-          iew={this.state.view.name}
+          view={this.state.view.name}
           setView={this.setView}
           addToCart={this.addToCart} />;
     }

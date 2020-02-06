@@ -6,7 +6,7 @@ export default function TurntableDetails(props) {
     <>
       <div className="text-muted" onClick={() => props.setView('turntable', {})} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Back to catalog</div>
       <div className="row">
-        <img className="col-5 ml-4 details-album-art" src={props.product.albumArt} alt={props.product.name} />
+        <img className="col-5 shadow-sm p-0 m-3" src={props.product.albumArt} alt={props.product.name} />
         <div className="col-5 my-auto">
           <div className="card-title h5 font-weight-bolder">{props.product.name} - {props.product.color}</div>
           <div className="card-text mt-n3">{props.product.brand}</div>
