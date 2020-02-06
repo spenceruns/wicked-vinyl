@@ -15,6 +15,7 @@ export default class CheckoutForm extends React.Component {
       month: '',
       year: '',
       cvv: '',
+      terms: false,
       validation: {
         fName: true,
         lName: true,
@@ -26,85 +27,20 @@ export default class CheckoutForm extends React.Component {
         creditCardNumber: true,
         month: true,
         year: true,
-        cvv: true
+        cvv: true,
+        terms: true
       }
     };
-    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-    this.handleLastNameChange = this.handleLastNameChange.bind(this);
-    this.handleAddress1Change = this.handleAddress1Change.bind(this);
-    this.handleAddress2Change = this.handleAddress2Change.bind(this);
-    this.handleCityChange = this.handleCityChange.bind(this);
-    this.handleStateChange = this.handleStateChange.bind(this);
-    this.handleZipChange = this.handleZipChange.bind(this);
-    this.handleCreditCardNumberChange = this.handleCreditCardNumberChange.bind(this);
-    this.handleMonthChange = this.handleMonthChange.bind(this);
-    this.handleYearChange = this.handleYearChange.bind(this);
-    this.handleCvvChange = this.handleCvvChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.checkForm = this.checkForm.bind(this);
   }
 
-  handleFirstNameChange(event) {
-    event.preventDefault();
-    !this.state.validation.fName && this.setState({ validation: { ...this.state.validation, fName: true } });
-    this.setState({ fName: event.target.value });
-  }
-
-  handleLastNameChange(event) {
-    event.preventDefault();
-    !this.state.validation.lName && this.setState({ validation: { ...this.state.validation, lName: true } });
-    this.setState({ lName: event.target.value });
-  }
-
-  handleAddress1Change(event) {
-    event.preventDefault();
-    !this.state.validation.address1 && this.setState({ validation: { ...this.state.validation, address1: true } });
-    this.setState({ address1: event.target.value });
-  }
-
-  handleAddress2Change(event) {
-    event.preventDefault();
-    this.setState({ address2: event.target.value });
-  }
-
-  handleCityChange(event) {
-    event.preventDefault();
-    !this.state.validation.city && this.setState({ validation: { ...this.state.validation, city: true } });
-    this.setState({ city: event.target.value });
-  }
-
-  handleStateChange(event) {
-    event.preventDefault();
-    !this.state.validation.state && this.setState({ validation: { ...this.state.validation, state: true } });
-    this.setState({ state: event.target.value });
-  }
-
-  handleZipChange(event) {
-    event.preventDefault();
-    !this.state.validation.zip && this.setState({ validation: { ...this.state.validation, zip: true } });
-    this.setState({ zip: event.target.value });
-  }
-
-  handleCreditCardNumberChange(event) {
-    event.preventDefault();
-    !this.state.validation.creditCardNumber && this.setState({ validation: { ...this.state.validation, creditCardNumber: true } });
-    this.setState({ creditCardNumber: event.target.value });
-  }
-
-  handleMonthChange(event) {
-    event.preventDefault();
-    !this.state.validation.month && this.setState({ validation: { ...this.state.validation, month: true } });
-    this.setState({ month: event.target.value });
-  }
-
-  handleYearChange(event) {
-    event.preventDefault();
-    !this.state.validation.year && this.setState({ validation: { ...this.state.validation, year: true } });
-    this.setState({ year: event.target.value });
-  }
-
-  handleCvvChange(event) {
-    event.preventDefault();
-    !this.state.validation.cvv && this.setState({ validation: { ...this.state.validation, cvv: true } });
-    this.setState({ cvv: event.target.value });
+  handleChange(event) {
+    const field = event.target.name;
+    !this.state.validation[field] && this.setState({ validation: { ...this.state.validation, [field]: true } });
+    (field === 'terms')
+      ? this.setState({ terms: !this.state.terms })
+      : this.setState({ [field]: event.target.value });
   }
 
   checkForm() {
@@ -113,7 +49,7 @@ export default class CheckoutForm extends React.Component {
     const addressRegex = new RegExp(/^\d{1,6}\040([A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,})$|^\d{1,6}\040([A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,})$|^\d{1,6}\040([A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,})$/);
     const cityRegex = new RegExp(/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/);
     const zipRegex = new RegExp(/^\d{5}(-\d{4})?$/);
-    const creditCardRegex = new RegExp(/^((4\d{3})|(5[1-5]\d{2})|(6011))-?\d{4}-?\d{4}-?\d{4}|3[4,7]\d{13}$/);
+    const creditCardRegex = new RegExp(/([0-9- ]{15,16})/);
     const cvvRegex = new RegExp(/^([0-9]{3,4})$/);
     for (const customerInfo in this.state) {
       switch (customerInfo) {
@@ -167,6 +103,11 @@ export default class CheckoutForm extends React.Component {
             validation.cvv = false;
           }
           break;
+        case 'terms':
+          if (!this.state[customerInfo]) {
+            validation.terms = false;
+          }
+          break;
       }
     }
     if (Object.values(validation).includes(false)) {
@@ -183,6 +124,7 @@ export default class CheckoutForm extends React.Component {
     totalPrice = `$${(totalPrice / 100).toFixed(2)}`;
     return (
       <>
+        <div className="text-muted" onClick={() => this.props.setView('vinyl', {})} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Continue Shopping</div>
         <div className="row col-12">
           <h1>My Cart</h1>
         </div>
@@ -196,36 +138,36 @@ export default class CheckoutForm extends React.Component {
           <header className="h5 font-weight-bold">Shipping/Billing Information</header>
           <div className="form-row">
             <div className="form-group col-6">
-              <input onChange={this.handleFirstNameChange} type="text" className={`form-control ${this.state.validation.fName ? '' : 'is-invalid'}`} placeholder="First name"/>
+              <input onChange={this.handleChange} name="fName" type="text" className={`form-control ${this.state.validation.fName ? '' : 'is-invalid'}`} placeholder="First name"/>
               <div className="invalid-feedback">
                 {this.state.validation.fName ? '' : 'Missing or Invalid First Name'}
               </div>
             </div>
             <div className="form-group col-6">
-              <input onChange={this.handleLastNameChange} type="text" className={`form-control ${this.state.validation.lName ? '' : 'is-invalid'}`} placeholder="Last name"/>
+              <input onChange={this.handleChange} name="lName" type="text" className={`form-control ${this.state.validation.lName ? '' : 'is-invalid'}`} placeholder="Last name"/>
               <div className="invalid-feedback">
                 {this.state.validation.lName ? '' : 'Missing or Invalid last Name'}
               </div>
             </div>
             <div className="form-group col-12">
-              <input onChange={this.handleAddress1Change} type="text" className={`form-control ${this.state.validation.address1 ? '' : 'is-invalid'}`} placeholder="Address Line 1" />
+              <input onChange={this.handleChange} name="address1" type="text" className={`form-control ${this.state.validation.address1 ? '' : 'is-invalid'}`} placeholder="Address Line 1" />
               <div className="invalid-feedback">
                 {this.state.validation.address1 ? '' : 'Missing or Invalid Address'}
               </div>
             </div>
             <div className="form-group col-12">
-              <input onChange={this.handleAddress2Change} type="text" className="form-control" placeholder="Address Line 2" />
+              <input onChange={this.handleChange} name="address2" type="text" className="form-control" placeholder="Address Line 2" />
             </div>
           </div>
           <div className="form-row">
             <div className="form-group col-md-6">
-              <input onChange={this.handleCityChange} type="text" className={`form-control ${this.state.validation.city ? '' : 'is-invalid'}`} placeholder="City"/>
+              <input onChange={this.handleChange} name="city" type="text" className={`form-control ${this.state.validation.city ? '' : 'is-invalid'}`} placeholder="City"/>
               <div className="invalid-feedback">
                 {this.state.validation.city ? '' : 'Missing or Invalid City'}
               </div>
             </div>
             <div className="form-group col-md-4">
-              <select onChange={this.handleStateChange} name="State" className={`form-control ${this.state.validation.state ? '' : 'is-invalid'}`}>
+              <select onChange={this.handleChange} name="state" className={`form-control ${this.state.validation.state ? '' : 'is-invalid'}`}>
                 <option defaultValue hidden>State</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -284,7 +226,7 @@ export default class CheckoutForm extends React.Component {
               </div>
             </div>
             <div className="form-group col-md-2">
-              <input onChange={this.handleZipChange} type="tel" className={`form-control ${this.state.validation.zip ? '' : 'is-invalid'}`} placeholder="Zip Code" />
+              <input onChange={this.handleChange} name="zip" type="tel" className={`form-control ${this.state.validation.zip ? '' : 'is-invalid'}`} placeholder="Zip Code" />
               <div className="invalid-feedback">
                 {this.state.validation.zip ? '' : 'Missing or Invalid Zip Code'}
               </div>
@@ -293,13 +235,13 @@ export default class CheckoutForm extends React.Component {
           <header className="h5 font-weight-bold">Credit Card Information</header>
           <div className="form-row">
             <div className="form-group col-md-6">
-              <input onChange={this.handleCreditCardNumberChange} className={`form-control ${this.state.validation.creditCardNumber ? '' : 'is-invalid'}`} name="credit-card" type="tel" placeholder="Credit Card Number" />
+              <input onChange={this.handleChange} name="creditCardNumber" className={`form-control ${this.state.validation.creditCardNumber ? '' : 'is-invalid'}`} type="tel" placeholder="Credit Card Number" />
               <div className="invalid-feedback">
                 {this.state.validation.creditCardNumber ? '' : 'Missing or Invalid Credit Card'}
               </div>
             </div>
             <div className="form-group col-md-2">
-              <select onChange={this.handleMonthChange} name="month" className={`form-control ${this.state.validation.month ? '' : 'is-invalid'}`}>
+              <select onChange={this.handleChange} name="month" className={`form-control ${this.state.validation.month ? '' : 'is-invalid'}`}>
                 <option defaultValue hidden>Month</option>
                 <option value="01">January</option>
                 <option value="02">February</option>``
@@ -319,7 +261,7 @@ export default class CheckoutForm extends React.Component {
               </div>
             </div>
             <div className="form-group col-md-2">
-              <select onChange={this.handleYearChange} name="year" className={`form-control ${this.state.validation.year ? '' : 'is-invalid'}`}>
+              <select onChange={this.handleChange} name="year" className={`form-control ${this.state.validation.year ? '' : 'is-invalid'}`}>
                 <option defaultValue hidden>Year</option>
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
@@ -338,14 +280,22 @@ export default class CheckoutForm extends React.Component {
               </div>
             </div>
             <div className="form-group col-md-2">
-              <input onChange={this.handleCvvChange} type="tel" className={`form-control ${this.state.validation.cvv ? '' : 'is-invalid'}`} placeholder="CVV"/>
+              <input onChange={this.handleChange} name="cvv" type="tel" className={`form-control ${this.state.validation.cvv ? '' : 'is-invalid'}`} placeholder="CVV"/>
               <div className="invalid-feedback">
                 {this.state.validation.cvv ? '' : 'Missing or Invalid CVV'}
               </div>
             </div>
           </div>
-          <div className="d-flex justify-content-between">
-            <div className="text-muted" onClick={() => this.props.setView('vinyl', {})} style={{ cursor: 'pointer' }} ><i className="fa fa-angle-left"></i> Continue Shopping</div>
+          <div className="form-check">
+            <input onChange={this.handleChange} name="terms" type="checkbox" className={`form-check-input ${this.state.validation.terms ? '' : 'is-invalid'}`} id="gridcheck"/>
+            <label htmlFor="gridCheck" className="form-check-label">
+                I accept that this website is for demonstration purposes, that no payment processing will be done, and that personal information such as names, addresses, or real credit card numbers should not be used on submission of this form.
+            </label>
+            <div className="invalid-feedback">
+              {this.state.validation.terms ? '' : 'Read and Accept the terms to continue'}
+            </div>
+          </div>
+          <div className="d-flex justify-content-end">
             <button className="btn btn-success" type="submit">Place Order</button>
           </div>
         </form>
