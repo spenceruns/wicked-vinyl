@@ -138,30 +138,30 @@ export default class CheckoutForm extends React.Component {
           <header className="h5 font-weight-bold">Shipping/Billing Information</header>
           <div className="form-row">
             <div className="form-group col-6">
-              <input onChange={this.handleChange} name="fName" type="text" className={`form-control ${this.state.validation.fName ? '' : 'is-invalid'}`} placeholder="First name"/>
+              <input onChange={this.handleChange} name="fName" type="text" className={`form-control ${this.state.validation.fName ? '' : 'is-invalid'}`} maxLength="32" placeholder="First name"/>
               <div className="invalid-feedback">
                 {this.state.validation.fName ? '' : 'Missing or Invalid First Name'}
               </div>
             </div>
             <div className="form-group col-6">
-              <input onChange={this.handleChange} name="lName" type="text" className={`form-control ${this.state.validation.lName ? '' : 'is-invalid'}`} placeholder="Last name"/>
+              <input onChange={this.handleChange} name="lName" type="text" className={`form-control ${this.state.validation.lName ? '' : 'is-invalid'}`} maxLength="32" placeholder="Last name"/>
               <div className="invalid-feedback">
                 {this.state.validation.lName ? '' : 'Missing or Invalid last Name'}
               </div>
             </div>
             <div className="form-group col-12">
-              <input onChange={this.handleChange} name="address1" type="text" className={`form-control ${this.state.validation.address1 ? '' : 'is-invalid'}`} placeholder="Address Line 1" />
+              <input onChange={this.handleChange} name="address1" type="text" className={`form-control ${this.state.validation.address1 ? '' : 'is-invalid'}`} maxLength="42" placeholder="Address Line 1" />
               <div className="invalid-feedback">
                 {this.state.validation.address1 ? '' : 'Missing or Invalid Address'}
               </div>
             </div>
             <div className="form-group col-12">
-              <input onChange={this.handleChange} name="address2" type="text" className="form-control" placeholder="Address Line 2" />
+              <input onChange={this.handleChange} name="address2" type="text" className="form-control" maxLength="42" placeholder="Address Line 2"/>
             </div>
           </div>
           <div className="form-row">
             <div className="form-group col-md-6">
-              <input onChange={this.handleChange} name="city" type="text" className={`form-control ${this.state.validation.city ? '' : 'is-invalid'}`} placeholder="City"/>
+              <input onChange={this.handleChange} name="city" type="text" className={`form-control ${this.state.validation.city ? '' : 'is-invalid'}`} maxLength="50" placeholder="City"/>
               <div className="invalid-feedback">
                 {this.state.validation.city ? '' : 'Missing or Invalid City'}
               </div>
@@ -226,7 +226,7 @@ export default class CheckoutForm extends React.Component {
               </div>
             </div>
             <div className="form-group col-md-2">
-              <input onChange={this.handleChange} name="zip" type="tel" className={`form-control ${this.state.validation.zip ? '' : 'is-invalid'}`} placeholder="Zip Code" />
+              <input onChange={this.handleChange} name="zip" type="tel" className={`form-control ${this.state.validation.zip ? '' : 'is-invalid'}`} maxLength="10" placeholder="Zip Code" />
               <div className="invalid-feedback">
                 {this.state.validation.zip ? '' : 'Missing or Invalid Zip Code'}
               </div>
@@ -235,7 +235,7 @@ export default class CheckoutForm extends React.Component {
           <header className="h5 font-weight-bold">Credit Card Information</header>
           <div className="form-row">
             <div className="form-group col-md-6">
-              <input onChange={this.handleChange} name="creditCardNumber" className={`form-control ${this.state.validation.creditCardNumber ? '' : 'is-invalid'}`} type="tel" placeholder="Credit Card Number" />
+              <input onChange={this.handleChange} name="creditCardNumber" className={`form-control ${this.state.validation.creditCardNumber ? '' : 'is-invalid'}`} maxLength="16" type="tel" placeholder="Credit Card Number" />
               <div className="invalid-feedback">
                 {this.state.validation.creditCardNumber ? '' : 'Missing or Invalid Credit Card'}
               </div>
@@ -280,7 +280,7 @@ export default class CheckoutForm extends React.Component {
               </div>
             </div>
             <div className="form-group col-md-2">
-              <input onChange={this.handleChange} name="cvv" type="tel" className={`form-control ${this.state.validation.cvv ? '' : 'is-invalid'}`} placeholder="CVV"/>
+              <input onChange={this.handleChange} name="cvv" type="tel" className={`form-control ${this.state.validation.cvv ? '' : 'is-invalid'}`} maxLength="4" placeholder="CVV"/>
               <div className="invalid-feedback">
                 {this.state.validation.cvv ? '' : 'Missing or Invalid CVV'}
               </div>
