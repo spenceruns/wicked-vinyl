@@ -46,7 +46,7 @@ export default class CheckoutForm extends React.Component {
   checkForm() {
     const validation = { ...this.state.validation };
     const nameRegex = new RegExp(/^[a-zA-Z ]+$/);
-    const addressRegex = new RegExp(/^\d{1,6}\040([A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,})$|^\d{1,6}\040([A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,})$|^\d{1,6}\040([A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,}\040[A-Z]{1}[a-z]{1,})$/);
+    const addressRegex = new RegExp(/^[#.0-9a-zA-Z\s,-]+$/);
     const cityRegex = new RegExp(/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/);
     const zipRegex = new RegExp(/^\d{5}(-\d{4})?$/);
     const creditCardRegex = new RegExp(/([0-9- ]{15,16})/);
