@@ -43,6 +43,7 @@ export default function OrderItem(props) {
             {category}
           </div>
           <div className="card-subtitle text-muted mb-2">{price}</div>
+          <div className="card-subtitle mb-2">Quantity: {props.product.quantity}</div>
         </div>
       </div>
     </div>

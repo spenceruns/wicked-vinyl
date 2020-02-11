@@ -55,10 +55,6 @@ html {
   cursor: pointer;
 }
 
-.nav-item:hover {
-  font-weight: bold;
-}
-
 .page {
   transition: transform 300ms ease-in-out;
 }
