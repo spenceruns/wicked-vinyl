@@ -15,7 +15,7 @@ export default function CartSummary(props) {
     props.toggleCart();
   }} className="btn btn-dark">Checkout</button>;
   let totalPrice = 0;
-  props.products.forEach(product => { totalPrice += product.price; });
+  props.products.forEach(product => { totalPrice += product.price * product.quantity; });
   totalPrice = `$${(totalPrice / 100).toFixed(2)}`;
   return (
     <div className="cart container">

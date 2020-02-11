@@ -22,7 +22,7 @@ export default class VinylItem extends React.Component {
     const price = `$${(this.props.product.price / 100).toFixed(2)}`;
     const vinyl = this.state.isHovered ? 'card-img-top vinyl show-vinyl' : 'card-img-top vinyl';
     return (
-      <div className="mt-sm-4 col-sm-4 col-md-6 col-xl-4 mb-4 mb-sm-0">
+      <div className="col-6 col-xl-4 mb-4">
         <div className="m-auto album-width" >
           <div className="album position-relative">
             <img className={ vinyl } src="/images/vinyl.png" alt='vinyl' />

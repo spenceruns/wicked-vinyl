@@ -11,7 +11,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       view: {
-        name: 'vinyl',
+        name: 'checkout',
         params: {}
       },
       showCart: false,
@@ -21,6 +21,7 @@ export default class App extends React.Component {
     };
     this.setView = this.setView.bind(this);
     this.toggleCart = this.toggleCart.bind(this);
+    this.resetCart = this.resetCart.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.decreaseCartQuantity = this.decreaseCartQuantity.bind(this);
     this.deleteCartItem = this.deleteCartItem.bind(this);
@@ -50,6 +51,10 @@ export default class App extends React.Component {
     }
   }
 
+  resetCart() {
+    this.setState({ cart: [] });
+  }
+
   getProducts(category) {
     fetch(`/api/products/all/${category}`)
       .then(results => results.json())
@@ -62,6 +67,8 @@ export default class App extends React.Component {
       case 'confirmation':
         return <ConfirmationPage
           cart={this.state.cart}
+          resetCart={this.resetCart}
+          info={this.state.view.params}
           setView={this.setView} />;
       case 'details':
         return <ProductDetails
@@ -149,13 +156,13 @@ export default class App extends React.Component {
       },
       body: JSON.stringify(customerInfo)
     })
+      .then(response => response.json())
       .then(data => {
         this.setState({
           view: {
-            name: 'vinyl',
-            params: {}
-          },
-          cart: []
+            name: 'confirmation',
+            params: data
+          }
         }, () => this.getProducts('vinyl'));
       })
       .catch(err => console.error(err));
@@ -184,7 +191,12 @@ export default class App extends React.Component {
         <div className={`container-fluid page ${this.state.showCart && 'background-white'} ${this.state.movePage && 'cart-shown'}`}>
           <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'}`} onClick={this.toggleCart}></div>
           <header className="row sticky-top bg-light shadow-sm">
-            <Header numberInCart={quantity} setView={this.setView} toggleCart={this.toggleCart} />
+            <Header
+              numberInCart={quantity}
+              setView={this.setView}
+              view={this.state.view.name}
+              toggleCart={this.toggleCart}
+              resetCart={this.resetCart}/>
           </header>
           <div className="row">
             <div className="container full-page my-3">
