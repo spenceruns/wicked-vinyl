@@ -19,15 +19,15 @@ Link: https://wicked-vinyl.spenceruns.com/
 - User can add products to their cart
 - User can get to the checkout page
 - User can enter their purchase information
+- User can see and change quanity of product in cart.
+- User's informations is validated on the checkout page.
+- User can see a order confirmation after placing the order.
 
 # Preview
 ![wv-preview](https://user-images.githubusercontent.com/51275230/73703655-8568af80-46a5-11ea-8224-64ae11e039f5.gif)
 
 # Upcoming Features
 
-- User can see and change quanity of product in cart.
-- User's informations is validated on the checkout page.
-- User can see a order confirmation after placing the order.
 - User will be able to navigate with the brower's arrow keys after React Router is implimented.
 - User will see a home page when the website is first loaded.
 
