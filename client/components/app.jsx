@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './header';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
 import ConfirmationPage from './confirmation-page';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -210,3 +215,55 @@ export default class App extends React.Component {
     );
   }
 }
+
+// function HookApp(props) {
+//   const [cartShowing, setCartShowing] = useState(false)
+//   const [movePage, setMovePage] = useState(false)
+//   const [cart, setCart] = useState([])
+//   const [productsList, setProductsList] = useState([])
+
+//   const cart = cartShowing && <CartSummary
+//     products={cart}
+//     toggleCart={() => {
+//       if (cartShowing) {
+//         setTimeout(() => setCartShowing(false), 300)
+//         setMovePage(false)
+//       } else {
+//         setCartShowing(true)
+//         setMovePage(true)
+//       }
+//     }}
+//     setView={this.setView}
+//     addToCart={this.addToCart}
+//     decreaseItemQuantity={this.decreaseCartQuantity}
+//     deleteCartItem={this.deleteCartItem} />;
+//   let quantity = 0;
+//   this.state.cart.forEach(item => {
+//     quantity += item.quantity;
+//   });
+//   return (
+//     <Router>
+//       {cart}
+//       <div className={`container-fluid page ${this.state.showCart && 'background-white'} ${this.state.movePage && 'cart-shown'}`}>
+//         <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'}`} onClick={this.toggleCart}></div>
+//         <header className="row sticky-top bg-light shadow-sm">
+//           <Header
+//             numberInCart={quantity}
+//             setView={this.setView}
+//             view={this.state.view.name}
+//             toggleCart={this.toggleCart}
+//             resetCart={this.resetCart} />
+//         </header>
+//         <div className="row">
+//           <div className="container full-page my-3">
+//             <div className="row">
+//               <Switch>
+//                 <Route exact path="/" component={ProductList} />
+//               </Switch>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </Router>
+//   );
+// }
