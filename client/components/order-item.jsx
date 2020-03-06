@@ -1,5 +1,28 @@
 import React from 'react';
 
+export default function OrderItem(props) {
+  const category = props.product.category === 'vinyl'
+    ? <Vinyl product={props.product} />
+    : props.product.category === 'turntable'
+      ? <Turntable product={props.product} />
+      : <Accessory product={props.product} />;
+  const price = `$${(props.product.price / 100).toFixed(2)}`;
+  return (
+    <div className="card p-2 mb-3">
+      <div className="d-flex flex-column">
+        <img className="shadow-sm img-fluid" src={props.product.albumArt} alt={props.product.album} />
+        <div className="text-center w-100">
+          <div className="mb-1">
+            {category}
+          </div>
+          <div className="card-subtitle text-muted mb-2">{price}</div>
+          <div className="card-subtitle mb-2">Quantity: {props.product.quantity}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Vinyl(props) {
   return (
     <>
@@ -24,28 +47,5 @@ function Accessory(props) {
       <strong className="card-title">{props.product.name}</strong>
       <div className="card-text">{props.product.brand}</div>
     </>
-  );
-}
-
-export default function OrderItem(props) {
-  const category = props.product.category === 'vinyl'
-    ? <Vinyl product={props.product} />
-    : props.product.category === 'turntable'
-      ? <Turntable product={props.product} />
-      : <Accessory product={props.product} />;
-  const price = `$${(props.product.price / 100).toFixed(2)}`;
-  return (
-    <div className="card p-2 mb-3">
-      <div className="d-flex flex-column">
-        <img className="shadow-sm img-fluid" src={props.product.albumArt} alt={props.product.album} />
-        <div className="text-center w-100">
-          <div className="mb-1">
-            {category}
-          </div>
-          <div className="card-subtitle text-muted mb-2">{price}</div>
-          <div className="card-subtitle mb-2">Quantity: {props.product.quantity}</div>
-        </div>
-      </div>
-    </div>
   );
 }
