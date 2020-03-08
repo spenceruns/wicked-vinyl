@@ -34,6 +34,7 @@ export default class CheckoutForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.checkField = this.checkField.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.checkForm = this.checkForm.bind(this);
   }
 
   handleChange(event) {
@@ -166,8 +167,15 @@ export default class CheckoutForm extends React.Component {
     }
   }
 
+  checkForm() {
+    for (const field in this.state) {
+      if (this.state[field] === '' || this.state[field] === false) return false;
+    }
+    return true;
+  }
+
   handleSubmit() {
-    this.props.placeOrder(this.state);
+    if (this.checkForm()) this.props.placeOrder(this.state);
   }
 
   render() {
