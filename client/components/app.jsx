@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+// import {useState, useEffect} from 'react';
 import Header from './header';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
 import ConfirmationPage from './confirmation-page';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route
+// } from 'react-router-dom';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -217,20 +218,20 @@ export default class App extends React.Component {
 }
 
 // function HookApp(props) {
-//   const [cartShowing, setCartShowing] = useState(false)
-//   const [movePage, setMovePage] = useState(false)
-//   const [cart, setCart] = useState([])
-//   const [productsList, setProductsList] = useState([])
+//   const [cartShowing, setCartShowing] = useState(false);
+//   const [movePage, setMovePage] = useState(false);
+//   const [cart, setCart] = useState([]);
+//   const [productsList, setProductsList] = useState([]);
 
-//   const cart = cartShowing && <CartSummary
+//   const cart2 = cartShowing && <CartSummary
 //     products={cart}
 //     toggleCart={() => {
 //       if (cartShowing) {
-//         setTimeout(() => setCartShowing(false), 300)
-//         setMovePage(false)
+//         setTimeout(() => setCartShowing(false), 300);
+//         setMovePage(false);
 //       } else {
-//         setCartShowing(true)
-//         setMovePage(true)
+//         setCartShowing(true);
+//         setMovePage(true);
 //       }
 //     }}
 //     setView={this.setView}
@@ -243,7 +244,7 @@ export default class App extends React.Component {
 //   });
 //   return (
 //     <Router>
-//       {cart}
+//       {cart2}
 //       <div className={`container-fluid page ${this.state.showCart && 'background-white'} ${this.state.movePage && 'cart-shown'}`}>
 //         <div className={`cover-shadow ${!this.state.showCart && 'cover-shadow-hidden'}`} onClick={this.toggleCart}></div>
 //         <header className="row sticky-top bg-light shadow-sm">
@@ -259,6 +260,9 @@ export default class App extends React.Component {
 //             <div className="row">
 //               <Switch>
 //                 <Route exact path="/" component={ProductList} />
+//                 <Route path="/:id" component={ProductDetails} />
+//                 <Route path="/checkout" component={CheckoutForm} />
+//                 <Route path="/confirmation" component={ConfirmationPage} />
 //               </Switch>
 //             </div>
 //           </div>
